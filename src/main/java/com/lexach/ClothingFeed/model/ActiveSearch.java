@@ -12,7 +12,7 @@ import java.util.Date;
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
 // Аннотация описывает детали таблички, к которой данная модель прилепится.
-@Table(name = "User")
+@Table(name = "ActiveSearch")
 // EntityListener для инжекта значения в поля под аннотацией @CreatedDate.
 @EntityListeners(AuditingEntityListener.class)
 
@@ -20,37 +20,28 @@ import java.util.Date;
 // Эта аннотация используется т.к. мы не хотим, чтобы клиенты rest api парились с предоставлением значиний createdAt и updatedAt.
 // Если они предоставляют данные значения, мы просто их игнорим. Тем не менее, мы включаем эти значения в JSON response.
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class User {
+public class ActiveSearch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, updatable = false)
-    @NotBlank
-    private String nickname;
-
-    @NotBlank
-    private String passwordHashSum;
-
-    @Column(nullable = false, updatable = false)
-    // Конвертирует типы date и time в соответствующие типы БД.
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
-
-    @NotBlank
-    private Enum gender;
-
-    @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date registrationDate;
+    private Date createdAt;
 
     @NotBlank
-    private Long idCountry;
+    private Long idUser;
 
     @NotBlank
-    private Long idGroup;
+    private Long idCategory;
+
+    @NotBlank
+    private Long idColour;
+
+    @NotBlank
+    private Long idCategorySize;
 
     public Long getId() {
         return id;
@@ -60,60 +51,43 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getPasswordHashSum() {
-        return passwordHashSum;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setPasswordHashSum(String passwordHashSum) {
-        this.passwordHashSum = passwordHashSum;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 
-    public Enum getGender() {
-        return gender;
+    public Long getIdColour() {
+        return idColour;
     }
 
-    public void setGender(Enum gender) {
-        this.gender = gender;
+    public void setIdColour(Long idColour) {
+        this.idColour = idColour;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Long getIdCategorySize() {
+        return idCategorySize;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setIdCategorySize(Long idCategorySize) {
+        this.idCategorySize = idCategorySize;
     }
-
-    public Long getIdCountry() {
-        return idCountry;
-    }
-
-    public void setIdCountry(Long idCountry) {
-        this.idCountry = idCountry;
-    }
-
-    public Long getIdGroup() {
-        return idGroup;
-    }
-
-    public void setIdGroup(Long idGroup) {
-        this.idGroup = idGroup;
-    }
-
 }
