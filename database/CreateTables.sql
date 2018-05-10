@@ -185,6 +185,8 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`ActiveSearch`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ActiveSearch` (
+  `idActiveSearch` INT NOT NULL,
+  `createdAt` DATETIME NOT NULL,
   `idUser` INT NOT NULL,
   `idCategory` INT NULL,
   `idColour` INT NULL,
@@ -193,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ActiveSearch` (
   INDEX `fk_ActiveSearch_2_idx` (`idCategory` ASC),
   INDEX `fk_ActiveSearch_3_idx` (`idColour` ASC),
   INDEX `fk_ActiveSearch_4_idx` (`idCategorySize` ASC),
+  PRIMARY KEY (`idActiveSearch`),
   CONSTRAINT `fk_ActiveSearch_1`
     FOREIGN KEY (`idUser`)
     REFERENCES `MarketPlaceDB`.`User` (`idUser`)
