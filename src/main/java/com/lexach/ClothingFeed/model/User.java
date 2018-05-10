@@ -28,6 +28,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, updatable = false)
     @NotBlank
     private String nickname;
 
@@ -53,5 +54,68 @@ public class User {
     @NotBlank
     private Long idGroup;
 
-    // TODO add getters and setters.
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPasswordHashSum() {
+        return passwordHashSum;
+    }
+
+    public void setPasswordHashSum(String passwordHashSum) {
+        this.passwordHashSum = passwordHashSum;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Enum getGender() {
+        return gender;
+    }
+
+    public void setGender(Enum gender) {
+        this.gender = gender;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Long getIdCountry() {
+        return idCountry;
+    }
+
+    public void setIdCountry(Long idCountry) {
+        this.idCountry = idCountry;
+    }
+
+    public Long getIdGroup() {
+        return idGroup;
+    }
+
+    public void setIdGroup(Long idGroup) {
+        this.idGroup = idGroup;
+    }
+
 }
