@@ -1,15 +1,16 @@
 package com.lexach.ClothingFeed.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ProductColour")
-public class ProductColour {
+public class ProductColour implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idProduct;
 
-    
+    @Id
+    private Long idColour;
 
 }

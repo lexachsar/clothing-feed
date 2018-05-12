@@ -1,7 +1,5 @@
 package com.lexach.ClothingFeed.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
