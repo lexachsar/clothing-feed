@@ -61,10 +61,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
+			<artifactId>spring-secuarity-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
+		<!-- JSOUP -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
