@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.hibernate.internal.util.collections.ArrayHelper.toList;
+
 // Комбинация аннотаций:
 //  @Controller -- определяет контроллер
 //  @ResponseBody -- отмечает, что возвращаемые методами значения должны быть использованы в ответе на запрос.
@@ -24,9 +26,8 @@ public class UserController {
     // Вывести всех юзеров (GET /api/users)
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return toList( userRepository.findAll() );
     }
-
 
     // Создать нового юзера (POST /api/users)
     @PostMapping("/users")
