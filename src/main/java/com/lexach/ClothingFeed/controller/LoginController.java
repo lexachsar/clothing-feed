@@ -5,6 +5,7 @@ import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,14 +16,15 @@ import static org.hibernate.internal.util.collections.ArrayHelper.toList;
 // Комбинация аннотаций:
 //  @Controller -- определяет контроллер
 //  @ResponseBody -- отмечает, что возвращаемые методами значения должны быть использованы в ответе на запрос.
-@RestController
+@Controller
 // Определяет, что url для всех api этого контроллера будут начинаться с "/api"
-@RequestMapping("/api")
-public class UserController {
+@RequestMapping("/login")
+public class LoginController {
 
     @Autowired
     UserRepository userRepository;
 
+    /*
     // Вывести всех юзеров (GET /api/users)
     @GetMapping("/users")
     public List<User> getAllUsers() {
@@ -70,4 +72,5 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+*/
 }
