@@ -1,10 +1,7 @@
 package com.lexach.ClothingFeed.controller;
 
-import com.lexach.ClothingFeed.exception.RescourceNotFoundException;
-import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
