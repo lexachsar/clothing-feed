@@ -65,6 +65,12 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- TODO: разобрать зависимость -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 		<!-- JSOUP -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
