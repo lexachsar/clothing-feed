@@ -3,9 +3,12 @@ package com.lexach.ClothingFeed.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Date;
 
 // Все модели должны быть аннотированы данной аннотацией.
@@ -19,25 +22,27 @@ import java.util.Date;
 // Эта аннотация используется т.к. мы не хотим, чтобы клиенты rest api парились с предоставлением значиний createdAt и updatedAt.
 // Если они предоставляют данные значения, мы просто их игнорим. Тем не менее, мы включаем эти значения в JSON response.
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     @NotBlank
-    private String nickname;
-
-    @NotBlank
-    private String passwordHashSum;
+    private String email;
 
     @Column(nullable = false, updatable = false)
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
     // Конвертирует типы date и time в соответствующие типы БД.
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 
-    @NotBlank
     private Enum gender;
 
     @Column(nullable = false, updatable = false)
@@ -45,10 +50,10 @@ public class User {
     @CreatedDate
     private Date registrationDate;
 
-    @NotBlank
     private Long idCountry;
 
-    @NotBlank
+    // TODO: add groups.
+    //@NotBlank
     private Long idGroup;
 
     public Long getId() {
@@ -59,20 +64,56 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public String getPasswordHashSum() {
-        return passwordHashSum;
+    // TODO implement UserDetails methods.
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setPasswordHashSum(String passwordHashSum) {
-        this.passwordHashSum = passwordHashSum;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getBirthDate() {
@@ -114,5 +155,4 @@ public class User {
     public void setIdGroup(Long idGroup) {
         this.idGroup = idGroup;
     }
-
 }

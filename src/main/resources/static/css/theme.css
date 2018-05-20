@@ -1,0 +1,40 @@
+body {
+    background-color: white;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 40px;
+}
+
+.zen-table {
+    border-collapse: collapse;
+}
+
+.zen-table th {
+    border-bottom: 1px solid #ddd;
+}
+.zen-table td, .zen-table th {
+    border-left: 1px solid #ddd;
+    padding: 5px 10px;
+}
+.zen-table td:first-child, .zen-table th:first-child {
+    border-left: none;
+}
+
+/* Sign form styles*/
+.form-sign {
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-sign .form-group {
+    margin-top: 15px;
+}
+.form-sign button {
+    margin-top: 15px;
+}
