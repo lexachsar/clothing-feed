@@ -130,7 +130,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`User` (
   `idUser` INT NOT NULL,
-  `nickname` VARCHAR(45) NOT NULL,
+  `usernamename` VARCHAR(45) NOT NULL,
   `passwordHashSum` VARCHAR(45) NOT NULL,
   `birthDate` DATE NOT NULL,
   `gender` TINYINT(1) NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`User` (
   `idGroup` INT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE INDEX `passwordHashSum_UNIQUE` (`passwordHashSum` ASC),
-  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC),
+  UNIQUE INDEX `nickname_UNIQUE` (`usernamename` ASC),
   INDEX `fk_Users_1_idx` (`idCountry` ASC),
   INDEX `fk_Users_2_idx` (`idGroup` ASC),
   CONSTRAINT `fk_Users_1`
