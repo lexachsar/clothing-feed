@@ -10,6 +10,10 @@ public class UserRegistrationForm {
 
     private String confirmPassword;
 
+
+    // TODO add validation.
+    // TODO ??? Can I add validation here, or do I have to create additional class for it ???
+
     public String getUsername() {
         return username;
     }

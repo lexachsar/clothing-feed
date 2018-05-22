@@ -25,6 +25,6 @@ public class RegistrationValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         // TODO Add Validation.
-        // TODO ? Как сделать валидацию на пароль (в валидатор передается уже готовая модель без второго поля для пароля.) ?
+        // TODO ??? Как сделать валидацию на пароль (в валидатор передается уже готовая модель без второго поля для пароля.) ???
     }
 }

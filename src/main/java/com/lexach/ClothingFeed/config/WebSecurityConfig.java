@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // TODO ??? Why field injection is not recommended ???
     @Autowired
     private UserServiceImpl userDetailsService;
 
@@ -29,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()
+                .antMatchers("/resources/**", "/", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

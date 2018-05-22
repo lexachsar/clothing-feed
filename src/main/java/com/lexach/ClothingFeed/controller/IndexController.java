@@ -7,9 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController {
-    @GetMapping("/home")
+    @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("name", "name");
         return "index";
     }
 }

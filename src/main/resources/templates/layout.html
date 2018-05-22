@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="page">
+<head>
+    <title>MVC Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}" />
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Quoter</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav">
+                <li><a href="/theme/">Themes</a></li>
+                <li><a href="/author/">Authors</a></li>
+                <li><a href="/quote/">Quotes</a></li>
+            </ul>
+            <form sec:authorize="isAuthenticated()" class="navbar-form navbar-right" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/profile}" sec:authentication="name">Profile</a></li>
+            </ul>
+            <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/login}">Sign In</a></li>
+                <li><a th:href="@{/registration}">Sign Up</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div th:include="this :: content"></div>
+</div>
+
+<script type="text/javascript"
+        src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+        src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

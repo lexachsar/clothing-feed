@@ -33,7 +33,6 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false, updatable = false)
-    @NotBlank
     private String username;
 
     @NotBlank
