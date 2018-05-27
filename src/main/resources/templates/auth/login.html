@@ -4,28 +4,40 @@
       th:include="layout :: page">
 
 <body>
+
 <div th:fragment="content">
-    <div  class="page-header">
-        <h2 class="text-center">Sign In</h2>
-    </div>
-    <div th:if="${param.error}" class="alert alert-danger form-sign">
+
+<!-- !PAGE CONTENT! -->
+<div th:fragment="content" class="w3-main" style="margin-left:250px">
+
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+
+    <!-- Top header -->
+    <header class="page-header w3-container w3-xlarge">
+        <p class="w3-center">Sign In</p>
+    </header>
+
+    <!-- Login Page -->
+    <div th:if="${param.error}" class="w3-center w3-panel w3-red">
         Invalid username or password.
     </div>
-    <div th:if="${param.logout}" class="alert alert-success form-sign">
+    <div th:if="${param.logout}" class="w3-center w3-panel w3-green">
         You have been logged out.
     </div>
-    <form th:action="@{/login}" method="post" class="form-sign">
+
+    <form th:action="@{/login}" method="post" class="form-sign w3-center w3-container w3-padding-64 w3-large w3-text-grey">
         <div class="form-group">
-            <label class="control-label" for="username">User Name</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
+            <input type="text" class="form-control w3-input w3-animated-input" id="username" name="username" placeholder="Username" />
         </div>
         <div class="form-group">
-            <label class="control-label" for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
+            <input type="password" class="form-control w3-input w3-animated-input" name="password" id="password" placeholder="Password" />
         </div>
 
-        <input class="btn btn-success btn-block" type="submit" value="Sign In"/>
+        <input class="btn btn-success btn-block w3-button" type="submit" value="Sign In"/>
     </form>
+    </div>
 </div>
 </body>
+
 </html>

@@ -3,6 +3,7 @@ package com.lexach.ClothingFeed.service;
 import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -29,9 +33,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public User signupUser(User user) {
 
@@ -40,4 +41,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
 
     }
+
+    @Override
+    public User getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
+                getAuthentication().getPrincipal();
+        User user = null;
+        if (userDetails instanceof User) {
+            user =  (User) userDetails;
+        }
+        return user;
+    }
+
+
 }

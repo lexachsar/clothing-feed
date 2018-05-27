@@ -1,35 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:fragment="page">
-<head>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <title>Clothing Feed</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    <link rel="stylesheet" th:href="@{/css/theme.css}" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-</head>
-
-<!-- TODO Move to .css file. -->
-<style>
-    .w3-sidebar a {font-family: "Roboto", sans-serif}
-    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
-</style>
-
-<body class="w3-content" style="max-width:1200px">
+<body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar" th:fragment="sidebar">
     <div class="w3-container w3-display-container w3-padding-16">
         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
         <h3 class="w3-wide w3-left-align"><b>Clothing Feed</b></h3>
@@ -41,7 +25,7 @@
         <a th:href="@{/registration}" class="w3-bar-item w3-button w3-large" >Sign Up</a>
     </div>
 
-    <div class="w3-padding-24 w3-large w3-text-grey" style="font-weight:bold">
+    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
         <a href="#" class="w3-bar-item w3-button">Shirts</a>
         <a href="#" class="w3-bar-item w3-button">Dresses</a>
         <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
@@ -67,25 +51,19 @@
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
     <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
     -->
+    <!-- Top menu on small screens -->
 </nav>
 
-
-<!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-padding-24 w3-wide">Clothing Feed</div>
+<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge" th:fragment="header">
+        <div class="w3-bar-item w3-padding-24 w3-wide">Clothing Feed</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 </header>
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-<div class="container">
-    <div th:include="this :: content"></div>
-</div>
-
-
-
-<script>
+<script th:fragment="scripts">
     // Accordion
     function myAccFunc() {
         var x = document.getElementById("demoAcc");
@@ -111,6 +89,7 @@
         document.getElementById("myOverlay").style.display = "none";
     }
 </script>
+
 
 </body>
 </html>

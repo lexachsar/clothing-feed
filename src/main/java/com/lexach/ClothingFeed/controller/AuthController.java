@@ -55,4 +55,9 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "auth/profile";
+    }
+
 }

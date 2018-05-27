@@ -7,4 +7,5 @@ public interface UserService extends UserDetailsService {
 
     User signupUser(User user);
 
+    User getCurrentUser();
 }

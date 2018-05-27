@@ -9,6 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
-        return "index";
+        return "/index";
     }
 }
