@@ -18,9 +18,9 @@ USE `MarketPlaceDB` ;
 -- Table `MarketPlaceDB`.`ProductCategory`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ProductCategory` (
-  `idCategory` INT NOT NULL,
+  `id` BIGINT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idCategory`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -28,9 +28,35 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`Retailer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Retailer` (
-  `idRetailer` INT NOT NULL,
+  `id` BIGINT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idRetailer`))
+  `rootUrl` VARCHAR(45) NOT NULL,
+  `parserClassName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `rootUrl_UNIQUE` (`rootUrl` ASC),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  UNIQUE INDEX `ParserClassName_UNIQUE` (`parserClassName` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `MarketPlaceDB`.`Gender`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Gender` (
+  `id` BIGINT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC));
+
+
+-- -----------------------------------------------------
+-- Table `MarketPlaceDB`.`Country`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Country` (
+  `id` BIGINT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
 
@@ -38,24 +64,41 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`Product`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Product` (
-  `idProduct` INT NOT NULL,
-  `idRetailer` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `idCategory` INT NULL,
-  `price` VARCHAR(45) NULL,
-  `brandName` VARCHAR(45) NULL,
-  `url` VARCHAR(45) NULL,
-  PRIMARY KEY (`idProduct`, `idRetailer`),
+  `id` BIGINT NOT NULL,
+  `idRetailer` BIGINT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `idCategory` BIGINT NOT NULL,
+  `price` DECIMAL NOT NULL,
+  `priceCurrency` VARCHAR(45) NOT NULL,
+  `brandName` VARCHAR(45) NOT NULL,
+  `url` VARCHAR(45) NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedAt` DATETIME NOT NULL,
+  `idGender` BIGINT NULL,
+  `manufacturedCountryId` BIGINT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_store_id_idx` (`idRetailer` ASC),
   INDEX `fk_category_id_idx` (`idCategory` ASC),
+  INDEX `fk_Product_1_idx` (`idGender` ASC),
+  INDEX `fk_Product_3_idx` (`manufacturedCountryId` ASC),
   CONSTRAINT `fk_store_id`
     FOREIGN KEY (`idRetailer`)
-    REFERENCES `MarketPlaceDB`.`Retailer` (`idRetailer`)
+    REFERENCES `MarketPlaceDB`.`Retailer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_category_id`
     FOREIGN KEY (`idCategory`)
-    REFERENCES `MarketPlaceDB`.`ProductCategory` (`idCategory`)
+    REFERENCES `MarketPlaceDB`.`ProductCategory` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Product_1`
+    FOREIGN KEY (`idGender`)
+    REFERENCES `MarketPlaceDB`.`Gender` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Product_3`
+    FOREIGN KEY (`manufacturedCountryId`)
+    REFERENCES `MarketPlaceDB`.`Country` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -65,63 +108,59 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`Colour`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Colour` (
-  `colour_id` INT NOT NULL,
-  `colour_name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`colour_id`));
+  `id` BIGINT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `hex` VARCHAR(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `hex_UNIQUE` (`hex` ASC));
 
 
 -- -----------------------------------------------------
 -- Table `MarketPlaceDB`.`ProductColour`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ProductColour` (
-  `idProduct` INT NOT NULL,
-  `idColour` INT NOT NULL,
-  PRIMARY KEY (`idProduct`, `idColour`),
+  `id` BIGINT NOT NULL,
+  `idProduct` BIGINT NOT NULL,
+  `idColour` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_colour_id_idx` (`idColour` ASC),
   CONSTRAINT `fk_product_id`
     FOREIGN KEY (`idProduct`)
-    REFERENCES `MarketPlaceDB`.`Product` (`idProduct`)
+    REFERENCES `MarketPlaceDB`.`Product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_colour_id`
     FOREIGN KEY (`idColour`)
-    REFERENCES `MarketPlaceDB`.`Colour` (`colour_id`)
+    REFERENCES `MarketPlaceDB`.`Colour` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `MarketPlaceDB`.`Image`
+-- Table `MarketPlaceDB`.`ProductImage`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Image` (
-  `idProduct` INT NOT NULL,
-  `imageUrl` VARCHAR(45) NULL,
+CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ProductImage` (
+  `id` BIGINT NOT NULL,
+  `idProduct` BIGINT NOT NULL,
+  `imageUrl` VARCHAR(45) NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_Images_1`
     FOREIGN KEY (`idProduct`)
-    REFERENCES `MarketPlaceDB`.`Product` (`idProduct`)
+    REFERENCES `MarketPlaceDB`.`Product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `MarketPlaceDB`.`Country`
+-- Table `MarketPlaceDB`.`UserGroup`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Country` (
-  `idCountry` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idCountry`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `MarketPlaceDB`.`Group`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`Group` (
-  `idGroup` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`UserGroup` (
+  `id` BIGINT NOT NULL,
   `name` VARCHAR(45) NULL,
-  PRIMARY KEY (`idGroup`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -129,53 +168,35 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`User`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`User` (
-  `idUser` INT NOT NULL,
-  `usernamename` VARCHAR(45) NOT NULL,
-  `passwordHashSum` VARCHAR(45) NOT NULL,
-  `birthDate` DATE NOT NULL,
-  `gender` TINYINT(1) NOT NULL,
+  `id` BIGINT NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `birthDate` DATE NULL,
+  `idGender` BIGINT NULL,
   `registartionDate` DATETIME NOT NULL,
-  `idCountry` INT NULL,
-  `idGroup` INT NULL,
-  PRIMARY KEY (`idUser`),
-  UNIQUE INDEX `passwordHashSum_UNIQUE` (`passwordHashSum` ASC),
-  UNIQUE INDEX `nickname_UNIQUE` (`usernamename` ASC),
-  INDEX `fk_Users_1_idx` (`idCountry` ASC),
+  `idCountry` BIGINT NULL,
+  `idGroup` BIGINT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `passwordHashSum_UNIQUE` (`password` ASC),
+  UNIQUE INDEX `nickname_UNIQUE` (`username` ASC),
   INDEX `fk_Users_2_idx` (`idGroup` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  INDEX `fk_Users_1_idx` (`idCountry` ASC),
+  INDEX `fk_User_1_idx` (`idGender` ASC),
   CONSTRAINT `fk_Users_1`
     FOREIGN KEY (`idCountry`)
-    REFERENCES `MarketPlaceDB`.`Country` (`idCountry`)
+    REFERENCES `MarketPlaceDB`.`Country` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Users_2`
     FOREIGN KEY (`idGroup`)
-    REFERENCES `MarketPlaceDB`.`Group` (`idGroup`)
+    REFERENCES `MarketPlaceDB`.`UserGroup` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `MarketPlaceDB`.`CategorySize`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`CategorySize` (
-  `idCategorySize` INT NOT NULL,
-  `idCategory` INT NOT NULL,
-  `ruSize` INT NOT NULL,
-  `ukSize` INT NOT NULL,
-  `usSize` INT NOT NULL,
-  `euSize` INT NOT NULL,
-  `itSize` INT NOT NULL,
-  UNIQUE INDEX `ruSize_UNIQUE` (`ruSize` ASC),
-  UNIQUE INDEX `ukSize_UNIQUE` (`ukSize` ASC),
-  UNIQUE INDEX `usSize_UNIQUE` (`usSize` ASC),
-  UNIQUE INDEX `euSize_UNIQUE` (`euSize` ASC),
-  UNIQUE INDEX `itSize_UNIQUE` (`itSize` ASC),
-  PRIMARY KEY (`idCategorySize`),
-  UNIQUE INDEX `idSize_UNIQUE` (`idCategorySize` ASC),
-  CONSTRAINT `fk_ClothingSizes_1`
-    FOREIGN KEY (`idCategory`)
-    REFERENCES `MarketPlaceDB`.`ProductCategory` (`idCategory`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_User_1`
+    FOREIGN KEY (`idGender`)
+    REFERENCES `MarketPlaceDB`.`Gender` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -185,35 +206,29 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`ActiveSearch`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ActiveSearch` (
-  `idActiveSearch` INT NOT NULL,
+  `id` BIGINT NOT NULL,
   `createdAt` DATETIME NOT NULL,
-  `idUser` INT NOT NULL,
-  `idCategory` INT NULL,
-  `idColour` INT NULL,
-  `idCategorySize` INT NULL,
+  `idUser` BIGINT NOT NULL,
+  `idCategory` BIGINT NULL,
+  `idColour` BIGINT NULL,
+  `idCategorySize` BIGINT NULL,
   INDEX `fk_ActiveSearch_1_idx` (`idUser` ASC),
   INDEX `fk_ActiveSearch_2_idx` (`idCategory` ASC),
   INDEX `fk_ActiveSearch_3_idx` (`idColour` ASC),
-  INDEX `fk_ActiveSearch_4_idx` (`idCategorySize` ASC),
-  PRIMARY KEY (`idActiveSearch`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_ActiveSearch_1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `MarketPlaceDB`.`User` (`idUser`)
+    REFERENCES `MarketPlaceDB`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ActiveSearch_2`
     FOREIGN KEY (`idCategory`)
-    REFERENCES `MarketPlaceDB`.`ProductCategory` (`idCategory`)
+    REFERENCES `MarketPlaceDB`.`ProductCategory` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ActiveSearch_3`
     FOREIGN KEY (`idColour`)
-    REFERENCES `MarketPlaceDB`.`Colour` (`colour_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ActiveSearch_4`
-    FOREIGN KEY (`idCategorySize`)
-    REFERENCES `MarketPlaceDB`.`CategorySize` (`idCategorySize`)
+    REFERENCES `MarketPlaceDB`.`Colour` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -222,18 +237,20 @@ CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ActiveSearch` (
 -- Table `MarketPlaceDB`.`ProductSize`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ProductSize` (
-  `idProduct` INT NOT NULL,
-  `idSize` INT NOT NULL,
-  PRIMARY KEY (`idProduct`, `idSize`),
-  INDEX `fk_ProductSizes_1_idx` (`idSize` ASC),
-  CONSTRAINT `fk_ProductSizes_1`
-    FOREIGN KEY (`idSize`)
-    REFERENCES `MarketPlaceDB`.`CategorySize` (`idCategorySize`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  `id` BIGINT NOT NULL,
+  `idProduct` BIGINT NOT NULL,
+  `size` VARCHAR(45) NOT NULL,
+  `sizeCounrtyId` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ProductSize_1_idx` (`sizeCounrtyId` ASC),
   CONSTRAINT `fk_ProductSizes_2`
     FOREIGN KEY (`idProduct`)
-    REFERENCES `MarketPlaceDB`.`Product` (`idProduct`)
+    REFERENCES `MarketPlaceDB`.`Product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ProductSize_1`
+    FOREIGN KEY (`sizeCounrtyId`)
+    REFERENCES `MarketPlaceDB`.`Country` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -243,18 +260,20 @@ ENGINE = InnoDB;
 -- Table `MarketPlaceDB`.`UserBookmark`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`UserBookmark` (
-  `idUser` INT NOT NULL,
-  `idProduct` INT NOT NULL,
-  PRIMARY KEY (`idUser`, `idProduct`),
+  `id` BIGINT NOT NULL,
+  `idUser` BIGINT NOT NULL,
+  `idProduct` BIGINT NOT NULL,
+  `createdAt` DATETIME NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_UserBookmarks_1_idx` (`idProduct` ASC),
   CONSTRAINT `fk_UserBookmarks_1`
     FOREIGN KEY (`idProduct`)
-    REFERENCES `MarketPlaceDB`.`Product` (`idProduct`)
+    REFERENCES `MarketPlaceDB`.`Product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_UserBookmarks_2`
     FOREIGN KEY (`idUser`)
-    REFERENCES `MarketPlaceDB`.`User` (`idUser`)
+    REFERENCES `MarketPlaceDB`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

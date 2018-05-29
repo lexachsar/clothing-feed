@@ -30,10 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()
+                .antMatchers("/", "/registration", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                // TODO ??? Do I have to specify defaultSuccessUrl ???
+                .defaultSuccessUrl("/", true)
                 .loginPage("/login")
                 .permitAll()
                 .and()
