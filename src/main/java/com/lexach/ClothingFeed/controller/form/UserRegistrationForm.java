@@ -1,18 +1,25 @@
 package com.lexach.ClothingFeed.controller.form;
 
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserRegistrationForm {
 
+    @NotNull(message = "Please, fill email field.")
+    // TODO Add regexp Email validation.
     private String email;
 
+    @NotNull(message = "Please, fill username field.")
     private String username;
 
+    @NotNull(message = "Please, fill password field.")
+    @Size(min = 7, max = 30, message = "Password must have between 7 and 30 symbols.")
     private String password;
 
+    @NotNull(message = "Please, confirm password.")
+    @Size(min = 7, max = 30, message = "Password must have between 7 and 30 symbols.")
     private String confirmPassword;
-
-
-    // TODO add validation.
-    // TODO ??? Can I add validation here, or do I have to create additional class for it ???
 
     public String getUsername() {
         return username;

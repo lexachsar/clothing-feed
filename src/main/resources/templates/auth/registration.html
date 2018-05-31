@@ -1,103 +1,61 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      th:include="layout :: page">
 
-<title>Registration Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .w3-sidebar a {
-        font-family: "Roboto", sans-serif
-    }
 
-    body, h1, h2, h3, h4, h5, h6, .w3-wide {
-        font-family: "Montserrat", sans-serif;
-    }
-</style>
-<body class="w3-content" style="max-width:1200px">
+<body>
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+<div th:fragment="content">
 
-    <div class="w3-container w3-display-container w3-padding-16">
-        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-        <h3 class="w3-wide w3-left-align"><b>Clothing Feed</b></h3>
+    <!-- TODO FIX error during parsing this page, when validation error pops up. -->
+
+    <!-- !PAGE CONTENT! -->
+    <div th:fragment="content" class="w3-main" style="margin-left:250px">
+
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="page-header w3-container w3-xlarge">
+            <p class="w3-center">Sign Up</p>
+        </header>
+
+        <form th:action="@{/registration}" method="post"
+              class="form-sign w3-center w3-container w3-padding-64 w3-large w3-text-grey" th:object="${user}">
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" id="email" th:field="*{email}" placeholder="Email"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" id="username" th:field="*{username}"
+                       placeholder="Username"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control w3-input" th:field="*{password}" id="password"
+                       placeholder="Password"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control w3-input" th:field="*{confirmPassword}" id="confirmPassword"
+                       placeholder="Confirm Password"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <input class="btn btn-success btn-block w3-button" type="submit" value="Sign Up"/>
+        </form>
+
     </div>
-
-    <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}" class="w3-bar-item w3-button w3-large">Sign In</a>
-    </div>
-
-    <div class="w3-large w3-text-grey" style="font-weight:bold">
-        <a href="/" class="w3-bar-item w3-button">Home</a>
-    </div>
-
-</nav>
-
-<!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-padding-24 w3-wide">Clothing Feed</div>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
-            class="fa fa-bars"></i></a>
-</header>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
-     id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div th:fragment="content" class="w3-main" style="margin-left:250px">
-
-    <!-- Push down content on small screens -->
-    <div class="w3-hide-large" style="margin-top:83px"></div>
-
-    <!-- Top header -->
-    <header class="page-header w3-container w3-xlarge">
-        <p class="w3-center">Sign Up</p>
-    </header>
-
-    <form th:action="@{/registration}" method="post"
-          class="form-sign w3-center w3-container w3-padding-64 w3-large w3-text-grey" th:object="${user}">
-        <div class="form-group">
-            <input type="text" class="form-control w3-input" id="email" th:field="*{email}" placeholder="Email"/>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control w3-input" id="username" th:field="*{username}"
-                   placeholder="Username"/>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control w3-input" th:field="*{password}" id="password"
-                   placeholder="Password"/>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control w3-input" th:field="*{confirmPassword}" id="confirmPassword"
-                   placeholder="Confirm Password"/>
-        </div>
-
-        <input class="btn btn-success btn-block w3-button" type="submit" value="Sign Up"/>
-    </form>
-
-</div>
 </div>
 </body>
-
-<script>
-    // Script to open and close sidebar
-    function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-    }
-
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-    }
-</script>
-
 </html>
 

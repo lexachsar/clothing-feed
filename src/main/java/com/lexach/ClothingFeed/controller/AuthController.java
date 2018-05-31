@@ -2,12 +2,15 @@ package com.lexach.ClothingFeed.controller;
 
 import com.lexach.ClothingFeed.controller.form.UserRegistrationForm;
 import com.lexach.ClothingFeed.model.User;
-import com.lexach.ClothingFeed.service.UserServiceImpl;
+import com.lexach.ClothingFeed.service.UserService;
+import com.lexach.ClothingFeed.valid.UserRegistrationFromValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -17,7 +20,22 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
+
+    /*
+    @Autowired
+    private UserRegistrationFromValidator userRegistrationFromValidator;
+
+    public AuthController(UserService userService, UserRegistrationFromValidator userRegistrationFromValidator) {
+        this.userService = userService;
+        this.userRegistrationFromValidator = userRegistrationFromValidator;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(userRegistrationFromValidator);
+    }
+    */
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
