@@ -17,42 +17,44 @@ import java.util.Date;
 @Table(name = "User")
 // EntityListener для инжекта значения в поля под аннотацией @CreatedDate.
 @EntityListeners(AuditingEntityListener.class)
-
-// Это Jackson аннотация. Spring Boot использует Jackson для сериализации и десериализации Java объектов в и из JSON-а.
-// Эта аннотация используется т.к. мы не хотим, чтобы клиенты rest api парились с предоставлением значиний createdAt и updatedAt.
-// Если они предоставляют данные значения, мы просто их игнорим. Тем не менее, мы включаем эти значения в JSON response.
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(nullable = false)
     @NotBlank
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, updatable = false)
+    @NotBlank
+    @Column(name = "username", nullable = false, unique = true, updatable = false)
     private String username;
 
     @NotBlank
+    @Column(name = "password", nullable = false, unique = true)
     private String password;
 
     // Конвертирует типы date и time в соответствующие типы БД.
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "birthDate")
     private Date birthDate;
 
-    private Enum gender;
+    @Column(name = "idGender")
+    private Enum idGender;
 
-    @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
+    @Column(name = "registrationDate", nullable = false, updatable = false)
     private Date registrationDate;
 
+    @Column(name = "idCountry")
     private Long idCountry;
 
     // TODO: add groups.
     //@NotBlank
+    @Column(name = "idGroup")
     private Long idGroup;
 
     public Long getId() {
@@ -123,14 +125,6 @@ public class User implements UserDetails {
         this.birthDate = birthDate;
     }
 
-    public Enum getGender() {
-        return gender;
-    }
-
-    public void setGender(Enum gender) {
-        this.gender = gender;
-    }
-
     public Date getRegistrationDate() {
         return registrationDate;
     }
@@ -153,5 +147,13 @@ public class User implements UserDetails {
 
     public void setIdGroup(Long idGroup) {
         this.idGroup = idGroup;
+    }
+
+    public Enum getIdGender() {
+        return idGender;
+    }
+
+    public void setIdGender(Enum idGender) {
+        this.idGender = idGender;
     }
 }

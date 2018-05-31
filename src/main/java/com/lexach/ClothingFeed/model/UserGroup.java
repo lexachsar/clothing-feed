@@ -12,9 +12,10 @@ public class UserGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotBlank
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
 
 }

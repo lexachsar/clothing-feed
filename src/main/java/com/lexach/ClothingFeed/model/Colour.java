@@ -2,6 +2,7 @@ package com.lexach.ClothingFeed.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
@@ -11,10 +12,17 @@ public class Colour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotBlank
+    @Column(name = "name")
     private String name ;
+
+    @Column(name = "hex", nullable = false, unique = true)
+    private String hex;
+
+    @OneToMany(mappedBy = "colour")
+    private Set<ProductColour> productColours;
 
     public Long getId() {
         return id;
@@ -30,5 +38,21 @@ public class Colour {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHex() {
+        return hex;
+    }
+
+    public void setHex(String hex) {
+        this.hex = hex;
+    }
+
+    public Set<ProductColour> getProductColours() {
+        return productColours;
+    }
+
+    public void setProductColours(Set<ProductColour> productColours) {
+        this.productColours = productColours;
     }
 }

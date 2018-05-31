@@ -1,27 +1,28 @@
 package com.lexach.ClothingFeed.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
-@Table(name = "ProductCategory")
-public class ProductCategory {
+@Table(name = "Gender")
+public class Gender {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "gender")
     private Set<Product> products;
 
-    public ProductCategory() {
+    public Gender() {
     }
 
-    public ProductCategory(String name) {
+    public Gender(String name) {
         this.name = name;
     }
 

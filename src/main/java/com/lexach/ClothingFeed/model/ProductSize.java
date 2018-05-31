@@ -1,18 +1,25 @@
 package com.lexach.ClothingFeed.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "ProductSize")
-public class ProductSize implements Serializable {
+public class ProductSize {
 
     @Id
-    private Long idProduct;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @Id
-    private Long idSize;
+    @ManyToOne
+    @JoinColumn(name = "idProduct", nullable = false)
+    private Product product;
 
+    @Column(name = "size", nullable = false)
+    private String size;
+
+    @ManyToOne
+    @JoinColumn(name = "sizeCountryId", nullable = false)
+    private Country sizeCountry;
 }

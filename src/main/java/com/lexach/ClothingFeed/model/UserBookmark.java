@@ -12,17 +12,22 @@ import java.util.Date;
 @Table(name = "UserBookmark")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class UserBookmark implements Serializable {
+public class UserBookmark {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "idUser", nullable = false, updatable = false)
     private Long idUser;
 
-    @Id
+    @Column(name = "idProduct", nullable = false, updatable = false)
     private Long idProduct;
 
-    @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date createdDate;
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private Date createdAt;
 
 }

@@ -12,24 +12,25 @@ public class CategorySize{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotBlank
+    @Column(name = "idCategory", nullable = false)
     private Long idCategory;
 
-    @NotBlank
+    @Column(name = "ruSize", nullable = false)
     private Integer ruSize;
 
-    @NotBlank
+    @Column(name = "ukSize", nullable = false)
     private Integer ukSize;
 
-    @NotBlank
+    @Column(name = "usSize", nullable = false)
     private Integer usSize;
 
-    @NotBlank
+    @Column(name = "euSize", nullable = false)
     private Integer euSize;
 
-    @NotBlank
+    @Column(name = "itSize", nullable = false)
     private Integer itSize;
 
     public Long getId() {
