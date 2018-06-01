@@ -1,7 +1,8 @@
-package com.lexach.ClothingFeed.service;
+package com.lexach.ClothingFeed.service.impl;
 
 import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.repository.UserRepository;
+import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

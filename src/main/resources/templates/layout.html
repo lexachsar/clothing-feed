@@ -42,22 +42,12 @@
     </div>
 
     <div class="w3-padding-24 w3-large w3-text-grey" style="font-weight:bold">
-        <a href="#" class="w3-bar-item w3-button">Shirts</a>
-        <a href="#" class="w3-bar-item w3-button">Dresses</a>
-        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-            Jeans <i class="fa fa-caret-down"></i>
-        </a>
-        <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-            <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a>
-            <a href="#" class="w3-bar-item w3-button">Relaxed</a>
-            <a href="#" class="w3-bar-item w3-button">Bootcut</a>
-            <a href="#" class="w3-bar-item w3-button">Straight</a>
+        <div class="container">
+            <div th:include="this :: content-sidebar"></div>
         </div>
-        <a href="#" class="w3-bar-item w3-button">Jackets</a>
-        <a href="#" class="w3-bar-item w3-button">Gymwear</a>
-        <a href="#" class="w3-bar-item w3-button">Blazers</a>
-        <a href="#" class="w3-bar-item w3-button">Shoes</a>
     </div>
+
+
 
     <form sec:authorize="isAuthenticated()" class= "w3-bar-item w3-large" th:action="@{/logout}" th:method="post">
         <button type="submit" class="w3-bar-item w3-button w3-large" >Logout</button>
@@ -80,7 +70,7 @@
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <div class="container">
-    <div th:include="this :: content"></div>
+    <div th:include="this :: content-main"></div>
 </div>
 
 

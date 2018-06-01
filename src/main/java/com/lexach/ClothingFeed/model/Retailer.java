@@ -26,6 +26,9 @@ public class Retailer {
     @OneToMany(mappedBy = "retailer")
     private Set<Product> products;
 
+    public Retailer() {
+    }
+
     public Retailer(String name, String rootUrl, String parserClassName) {
         this.name = name;
         this.rootUrl = rootUrl;

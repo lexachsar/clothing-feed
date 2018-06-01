@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
 
@@ -61,6 +62,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "idGeder")
     private Gender gender;
+
+    // TODO Move to images entity
+    @NotBlank
+    @Column(nullable = false)
+    private String mainImageLink;
 
     @ManyToOne
     @JoinColumn(name = "manufacturedCountryId")
@@ -176,5 +182,13 @@ public class Product {
 
     public void setOldPrice(Double oldPrice) {
         this.oldPrice = oldPrice;
+    }
+
+    public String getMainImageLink() {
+        return mainImageLink;
+    }
+
+    public void setMainImageLink(String mainImageLink) {
+        this.mainImageLink = mainImageLink;
     }
 }
