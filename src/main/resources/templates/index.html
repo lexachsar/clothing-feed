@@ -15,7 +15,7 @@
     <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
         <tr th:each="category : ${categories}">
 
-            <a href="" class="w3-bar-item w3-button" th:text="${category.name}"></a>
+            <a th:href="${'/category?categoryId=' + category.id + '&page=1'}" class="w3-bar-item w3-button" th:text="${category.name}"></a>
 
         </tr>
     </div>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <p>
-                    <div th:text="${product.name}"></div>
+                    <div th:text="${product.name + ' ' + product.brandName}"></div>
                     <br>
                     <b>
                         <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <p>
-                    <div th:text="${product.name}"></div>
+                    <div th:text="${product.name + ' ' + product.brandName}"></div>
                     <br>
                     <b>
                         <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <p>
-                    <div th:text="${product.name}"></div>
+                    <div th:text="${product.name + ' ' + product.brandName}"></div>
                     <br>
                     <b>
                         <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <p>
-                    <div th:text="${product.name}"></div>
+                    <div th:text="${product.name + ' ' + product.brandName}"></div>
                     <br>
                     <b>
                         <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
