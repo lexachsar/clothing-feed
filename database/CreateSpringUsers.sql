@@ -1,9 +1,7 @@
-CREATE USER 'springuser'@'localhost' identified by 'ThePassword';
+CREATE USER 'SpringWebApp'@'localhost' identified by 'SpringWebApp';
 
-GRANT ALL ON MarketPlaceDB.* TO 'springuser'@'localhost';
+GRANT ALL ON MarketPlaceDB.* TO 'SpringWebApp'@'localhost';
 
-CREATE USER 'parsers'@'localhost' identified by 'ThePassword';
+CREATE USER 'SpringParsers'@'localhost' identified by 'SpringParsers';
 
-GRANT ALL ON MarketPlaceDB.* TO 'parsers'@'localhost';
-
-
+GRANT ALL ON MarketPlaceDB.* TO 'SpringParsers'@'localhost';
