@@ -1,21 +1,4 @@
-body {
-    background-color: white;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-/* Sign form styles*/
-.form-sign {
-    max-width: 400px;
-    padding: 15px;
-    margin: 0 auto;
-}
-.form-sign .form-group {
-    margin-top: 15px;
-}
-.form-sign button {
-    margin-top: 15px;
+.product-prev-image {
+    width:100%;
+    height: 280px;
 }

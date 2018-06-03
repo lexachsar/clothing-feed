@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class IndexController {
@@ -27,15 +28,25 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
 
-        model.addAttribute("categories", productCategoryRepository.findAll());
+        ArrayList<ProductCategory> allProductCategories = (ArrayList<ProductCategory>) productCategoryRepository.findAll();
+
+        if(allProductCategories.isEmpty()) {
+            model.addAttribute("errorCategoriesAreEmpty", true);
+        } else {
+            model.addAttribute("categories", allProductCategories);
+        }
 
         // TODO try to change this part.
         ArrayList<Product> products = (ArrayList<Product>) productService.findHottestProducts();
 
-        model.addAttribute("products1col", products.subList(0, 10));
-        model.addAttribute("products2col", products.subList(10, 20));
-        model.addAttribute("products3col", products.subList(20, 30));
-        model.addAttribute("products4col", products.subList(30, 40));
+        if(products.isEmpty()) {
+            model.addAttribute("errorProductsAreEmpty", true);
+        } else {
+            model.addAttribute("products1col", products.subList(0, 10));
+            model.addAttribute("products2col", products.subList(10, 20));
+            model.addAttribute("products3col", products.subList(20, 30));
+            model.addAttribute("products4col", products.subList(30, 40));
+        }
 
         return "/index";
     }
