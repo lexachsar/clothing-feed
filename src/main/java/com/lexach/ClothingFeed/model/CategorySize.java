@@ -33,6 +33,9 @@ public class CategorySize{
     @Column(name = "itSize", nullable = false)
     private Integer itSize;
 
+    public CategorySize() {
+    }
+
     public Long getId() {
         return id;
     }

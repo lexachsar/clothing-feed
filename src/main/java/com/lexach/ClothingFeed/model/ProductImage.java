@@ -29,15 +29,21 @@ public class ProductImage {
     @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
 
+    // TODO fill this fields.
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "createdAt", updatable = false)
     private Date createdAt;
-
-    // TODO добавить аннотации для updatedAt
-    @Column(name = "updatedAt", nullable = false)
+    @Column(name = "updatedAt")
     private Date updatedAt;
 
+    public ProductImage() {
+    }
+
+    public ProductImage(Product product, String imageUrl) {
+        this.product = product;
+        this.imageUrl = imageUrl;
+    }
 
     public Long getId() {
         return id;

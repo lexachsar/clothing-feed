@@ -24,6 +24,9 @@ public class Colour {
     @OneToMany(mappedBy = "colour")
     private Set<ProductColour> productColours;
 
+    public Colour() {
+    }
+
     public Long getId() {
         return id;
     }

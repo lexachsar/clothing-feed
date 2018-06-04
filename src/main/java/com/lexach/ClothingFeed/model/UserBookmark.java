@@ -30,4 +30,38 @@ public class UserBookmark {
     @Column(name = "createdAt", nullable = false, updatable = false)
     private Date createdAt;
 
+    public UserBookmark() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public Long getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
