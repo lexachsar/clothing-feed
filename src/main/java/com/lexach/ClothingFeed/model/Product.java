@@ -191,4 +191,12 @@ public class Product {
     public void setMainImageLink(String mainImageLink) {
         this.mainImageLink = mainImageLink;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
