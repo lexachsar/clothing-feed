@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+
+<div th:fragment="content-sidebar">
+
+</div>
+
+<div th:fragment="content-main">
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:250px">
+
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <!-- TODO Check -->
+            <p class="w3-left">Internal server error!</p>
+            <p class="w3-right">
+                <i class="fa fa-search"></i>
+            </p>
+        </header>
+
+        <div class="w3-container w3-text-grey w3-center">
+            <p>Something wrong happens on server side :(</p>
+            <p>Please, contact to administrator</p>
+            <p><a class="btn btn-primary btn-lg" href="/" role="button">Go to index page!</a></p>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
