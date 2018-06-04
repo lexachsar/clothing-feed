@@ -3,7 +3,9 @@ package com.lexach.ClothingFeed.controller;
 import com.lexach.ClothingFeed.model.Product;
 import com.lexach.ClothingFeed.model.ProductCategory;
 import com.lexach.ClothingFeed.repository.ProductCategoryRepository;
+import com.lexach.ClothingFeed.service.ProductCategoryService;
 import com.lexach.ClothingFeed.service.ProductService;
+import com.lexach.ClothingFeed.service.UserService;
 import com.lexach.ClothingFeed.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,18 +25,13 @@ public class IndexController {
     private ProductService productService;
 
     @Autowired
-    private ProductCategoryRepository productCategoryRepository;
+    private ProductCategoryService productCategoryService;
 
     @GetMapping("/")
     public String index(Model model) {
 
-        ArrayList<ProductCategory> allProductCategories = (ArrayList<ProductCategory>) productCategoryRepository.findAll();
-
-        if(allProductCategories.isEmpty()) {
-            model.addAttribute("errorCategoriesAreEmpty", true);
-        } else {
-            model.addAttribute("categories", allProductCategories);
-        }
+        // Adding categories to model, so they are showed on sidebar.
+        productCategoryService.addCategoriesToModel(model);
 
         // TODO try to change this part.
         ArrayList<Product> products = (ArrayList<Product>) productService.findHottestProducts();

@@ -78,7 +78,7 @@
         </div>
 
         <!-- Product grid -->
-        <div class="w3-row w3-grayscale">
+        <div class="w3-row">
             <!-- First column -->
             <div class="w3-col l3 s6">
 
@@ -88,7 +88,7 @@
                         <div class="w3-display-container">
                             <img th:src="${product.mainImageLink}" style="width:100%">
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${product.url}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
                             </div>
                         </div>
                         <p>
@@ -113,7 +113,7 @@
                         <div class="w3-display-container">
                             <img th:src="${product.mainImageLink}" style="width:100%">
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${product.url}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
                             </div>
                         </div>
                         <p>
@@ -137,7 +137,7 @@
                         <div class="w3-display-container">
                             <img th:src="${product.mainImageLink}" style="width:100%">
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${product.url}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
                             </div>
                         </div>
                         <p>
@@ -160,7 +160,7 @@
                         <div class="w3-display-container">
                             <img th:src="${product.mainImageLink}" style="width:100%">
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${product.url}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
                             </div>
                         </div>
                         <p>

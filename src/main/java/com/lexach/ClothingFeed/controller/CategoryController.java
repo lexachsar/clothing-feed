@@ -3,6 +3,7 @@ package com.lexach.ClothingFeed.controller;
 import com.lexach.ClothingFeed.model.Product;
 import com.lexach.ClothingFeed.model.ProductCategory;
 import com.lexach.ClothingFeed.repository.ProductCategoryRepository;
+import com.lexach.ClothingFeed.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,14 @@ import java.util.Set;
 public class CategoryController {
 
     @Autowired
-    private ProductCategoryRepository productCategoryRepository;
+    private ProductCategoryService productCategoryService;
 
     @GetMapping("/category")
     public String category(Model model, @RequestParam Long categoryId, @RequestParam Integer page) {
-        model.addAttribute("categories", productCategoryRepository.findAll());
+
+        // Adding categories to model, so they are showed on sidebar.
+        productCategoryService.addCategoriesToModel(model);
+
         model.addAttribute("page", page);
         model.addAttribute("nextPage", page + 1);
         model.addAttribute("prevPage", page - 1);
@@ -30,7 +34,7 @@ public class CategoryController {
 
         page--;
 
-        Optional<ProductCategory> categoryOptional = productCategoryRepository.findById(categoryId);
+        Optional<ProductCategory> categoryOptional = productCategoryService.findById(categoryId);
 
         if(page < 0) {
             // TODO throw exception
