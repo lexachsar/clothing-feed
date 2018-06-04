@@ -45,6 +45,10 @@
         <a th:href="@{/registration}" class="w3-bar-item w3-button w3-large" >Sign Up</a>
     </div>
 
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/profile}" sec:authentication="name" class="w3-bar-item w3-button w3-large">Profile</a>
+    </div>
+
     <div class="w3-padding-24 w3-large w3-text-grey" style="font-weight:bold">
         <div class="container">
             <div th:include="this :: content-sidebar"></div>
