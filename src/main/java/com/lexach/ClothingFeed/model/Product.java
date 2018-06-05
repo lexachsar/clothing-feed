@@ -199,4 +199,12 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Set<ProductImage> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(Set<ProductImage> productImages) {
+        this.productImages = productImages;
+    }
 }
