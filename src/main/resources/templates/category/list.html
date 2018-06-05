@@ -84,20 +84,23 @@
 
                 <tr th:each="product : ${products1col}">
 
-                    <div class="w3-container">
+                    <div class="w3-container w3-padding-large w3-hover-shadow">
                         <div class="w3-display-container">
-                            <img th:src="${product.mainImageLink}" style="width:100%">
+                            <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                            <p>
+                            <div th:text="${product.name + ' ' + product.brandName}"></div>
+                            <b>
+                                <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                            </b>
+                            </p>
+
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}"
+                                   class="w3-button w3-black" target="_blank">Watch now <i
+                                        class="fa fa-eye"></i></a>
                             </div>
                         </div>
-                        <p>
-                        <div th:text="${product.name + ' ' + product.brandName}"></div>
-                        <br>
-                        <b>
-                            <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
-                        </b>
-                        </p>
                     </div>
 
                 </tr>
@@ -109,20 +112,23 @@
 
                 <tr th:each="product : ${products2col}">
 
-                    <div class="w3-container">
+                    <div class="w3-container w3-padding-large w3-hover-shadow">
                         <div class="w3-display-container">
-                            <img th:src="${product.mainImageLink}" style="width:100%">
+                            <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                            <p>
+                            <div th:text="${product.name + ' ' + product.brandName}"></div>
+                            <b>
+                                <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                            </b>
+                            </p>
+
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}"
+                                   class="w3-button w3-black" target="_blank">Watch now <i
+                                        class="fa fa-eye"></i></a>
                             </div>
                         </div>
-                        <p>
-                        <div th:text="${product.name + ' ' + product.brandName}"></div>
-                        <br>
-                        <b>
-                            <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
-                        </b>
-                        </p>
                     </div>
 
                 </tr>
@@ -133,20 +139,23 @@
             <div class="w3-col l3 s6">
                 <tr th:each="product : ${products3col}">
 
-                    <div class="w3-container">
+                    <div class="w3-container w3-padding-large w3-hover-shadow">
                         <div class="w3-display-container">
-                            <img th:src="${product.mainImageLink}" style="width:100%">
+                            <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                            <p>
+                            <div th:text="${product.name + ' ' + product.brandName}"></div>
+                            <b>
+                                <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                            </b>
+                            </p>
+
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}"
+                                   class="w3-button w3-black" target="_blank">Watch now <i
+                                        class="fa fa-eye"></i></a>
                             </div>
                         </div>
-                        <p>
-                        <div th:text="${product.name + ' ' + product.brandName}"></div>
-                        <br>
-                        <b>
-                            <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
-                        </b>
-                        </p>
                     </div>
 
                 </tr>
@@ -156,20 +165,23 @@
             <div class="w3-col l3 s6">
                 <tr th:each="product : ${products4col}">
 
-                    <div class="w3-container">
+                    <div class="w3-container w3-padding-large w3-hover-shadow">
                         <div class="w3-display-container">
-                            <img th:src="${product.mainImageLink}" style="width:100%">
+                            <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                            <p>
+                            <div th:text="${product.name + ' ' + product.brandName}"></div>
+                            <b>
+                                <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                            </b>
+                            </p>
+
                             <div class="w3-display-middle w3-display-hover">
-                                <a th:href="${'/product/summary?productId=' + product.id}" class="w3-button w3-black" target="_blank">Buy now <i class="fa fa-shopping-cart"></i></a>
+                                <a th:href="${'/product/summary?productId=' + product.id}"
+                                   class="w3-button w3-black" target="_blank">Watch now <i
+                                        class="fa fa-eye"></i></a>
                             </div>
                         </div>
-                        <p>
-                        <div th:text="${product.name + ' ' + product.brandName}"></div>
-                        <br>
-                        <b>
-                            <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
-                        </b>
-                        </p>
                     </div>
 
                 </tr>

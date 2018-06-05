@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -52,6 +53,14 @@ public class UserServiceImpl implements UserService {
             user =  (User) userDetails;
         }
         return user;
+    }
+
+    // TODO Fix cast exception
+    @Override
+    public void addUserToModel(Model model) {
+        User user = getCurrentUser();
+
+        model.addAttribute("user", user);
     }
 
 
