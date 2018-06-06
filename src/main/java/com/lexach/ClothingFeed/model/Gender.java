@@ -19,6 +19,9 @@ public class Gender {
     @OneToMany(mappedBy = "gender")
     private Set<Product> products;
 
+    @OneToMany(mappedBy = "gender")
+    private Set<User> users;
+
     public Gender() {
     }
 
@@ -48,5 +51,13 @@ public class Gender {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

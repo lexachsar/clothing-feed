@@ -19,18 +19,25 @@ public class UserBookmark {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "idUser", nullable = false, updatable = false)
-    private Long idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false, updatable = false)
+    private User user;
 
-    @Column(name = "idProduct", nullable = false, updatable = false)
-    private Long idProduct;
+    @ManyToOne
+    @JoinColumn(name = "idProduct", nullable = false, updatable = false)
+    private Product product;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "createdAt", updatable = false)
     private Date createdAt;
 
     public UserBookmark() {
+    }
+
+    public UserBookmark(User user, Product product) {
+        this.user = user;
+        this.product = product;
     }
 
     public Long getId() {
@@ -41,27 +48,27 @@ public class UserBookmark {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public Long getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(Long idProduct) {
-        this.idProduct = idProduct;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

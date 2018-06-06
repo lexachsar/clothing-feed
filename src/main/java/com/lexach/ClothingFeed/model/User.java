@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
@@ -41,21 +42,23 @@ public class User implements UserDetails {
     @Column(name = "birthDate")
     private Date birthDate;
 
-    @Column(name = "idGender")
-    private Enum idGender;
+    @ManyToOne
+    @JoinColumn(name = "idGender")
+    private Gender gender;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(name = "registrationDate", nullable = false, updatable = false)
     private Date registrationDate;
 
-    @Column(name = "idCountry")
-    private Long idCountry;
+    @ManyToOne
+    @JoinColumn(name = "idCountry")
+    private Country country;
 
     // TODO: add groups.
-    //@NotBlank
-    @Column(name = "idGroup")
-    private Long idGroup;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<UserBookmark> userBookmarks;
 
     public Long getId() {
         return id;
@@ -133,27 +136,27 @@ public class User implements UserDetails {
         this.registrationDate = registrationDate;
     }
 
-    public Long getIdCountry() {
-        return idCountry;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setIdCountry(Long idCountry) {
-        this.idCountry = idCountry;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
-    public Long getIdGroup() {
-        return idGroup;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setIdGroup(Long idGroup) {
-        this.idGroup = idGroup;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
-    public Enum getIdGender() {
-        return idGender;
+    public Set<UserBookmark> getUserBookmarks() {
+        return userBookmarks;
     }
 
-    public void setIdGender(Enum idGender) {
-        this.idGender = idGender;
+    public void setUserBookmarks(Set<UserBookmark> userBookmarks) {
+        this.userBookmarks = userBookmarks;
     }
 }

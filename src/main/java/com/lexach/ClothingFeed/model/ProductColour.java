@@ -1,8 +1,5 @@
 package com.lexach.ClothingFeed.model;
 
-import com.lexach.ClothingFeed.model.Colour;
-import com.lexach.ClothingFeed.model.Product;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

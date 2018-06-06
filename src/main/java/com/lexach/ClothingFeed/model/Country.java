@@ -1,7 +1,6 @@
 package com.lexach.ClothingFeed.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 // Все модели должны быть аннотированы данной аннотацией.
@@ -21,7 +20,10 @@ public class Country {
     private Set<Product> products;
 
     @OneToMany(mappedBy = "sizeCountry")
-    private Set<ProductSize> prouctSizes;
+    private Set<ProductSize> productSizes;
+
+    @OneToMany(mappedBy = "country")
+    private Set<User> users;
 
     public Country() {
     }
@@ -54,11 +56,19 @@ public class Country {
         this.products = products;
     }
 
-    public Set<ProductSize> getProuctSizes() {
-        return prouctSizes;
+    public Set<ProductSize> getProductSizes() {
+        return productSizes;
     }
 
-    public void setProuctSizes(Set<ProductSize> prouctSizes) {
-        this.prouctSizes = prouctSizes;
+    public void setProductSizes(Set<ProductSize> productSizes) {
+        this.productSizes = productSizes;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
