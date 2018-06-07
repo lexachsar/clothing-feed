@@ -10,6 +10,7 @@ import com.lexach.ClothingFeed.service.UserBookmarkService;
 import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -59,15 +60,16 @@ public class ProductController {
 
             Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
 
-            /*
-            if (Objects.isNull(existingAuth) || !existingAuth.isAuthenticated()) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            if (!(auth instanceof AnonymousAuthenticationToken)) {
+
                 User user = userService.getCurrentUser();
 
                 UserBookmark userBookmark = userBookmarkService.findByUserAndProduct(user, product);
 
                 model.addAttribute("userBookmark", userBookmark);
             }
-            */
 
 
         }
