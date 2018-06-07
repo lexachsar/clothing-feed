@@ -2,16 +2,24 @@ package com.lexach.ClothingFeed.controller;
 
 import com.lexach.ClothingFeed.model.Product;
 import com.lexach.ClothingFeed.model.ProductImage;
+import com.lexach.ClothingFeed.model.User;
+import com.lexach.ClothingFeed.model.UserBookmark;
 import com.lexach.ClothingFeed.service.ProductCategoryService;
 import com.lexach.ClothingFeed.service.ProductService;
+import com.lexach.ClothingFeed.service.UserBookmarkService;
+import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,7 +31,13 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private UserBookmarkService userBookmarkService;
 
     @GetMapping("/summary")
     public String summary(Model model, @RequestParam Long productId) {
@@ -43,8 +57,50 @@ public class ProductController {
 
             model.addAttribute("productImages", productImages);
 
+            Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
+
+            /*
+            if (Objects.isNull(existingAuth) || !existingAuth.isAuthenticated()) {
+                User user = userService.getCurrentUser();
+
+                UserBookmark userBookmark = userBookmarkService.findByUserAndProduct(user, product);
+
+                model.addAttribute("userBookmark", userBookmark);
+            }
+            */
+
+
         }
         return "/product/summary";
+    }
+
+    /**
+     * Method bookmarks @param product.
+     */
+    @GetMapping("/bookmark")
+    public String bookmark( @RequestParam Long productId, @RequestParam String action) {
+
+        Optional<Product> productOptional = productService.findById(productId);
+
+        if(productOptional.isPresent()) {
+
+            Product product = productOptional.get();
+
+            User user = userService.getCurrentUser();
+
+            if(action.equals("add")) {
+                UserBookmark userBookmark = new UserBookmark(user, product);
+
+                userBookmarkService.save(userBookmark);
+            } else if(action.equals("delete")) {
+                UserBookmark userBookmark = userBookmarkService.findByUserAndProduct(user, product);
+
+                userBookmarkService.delete(userBookmark);
+            }
+
+        }
+
+        return ("redirect:/product/summary?productId=" + productId);
     }
 
 

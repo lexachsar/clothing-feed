@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +34,28 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public Optional<ProductCategory> findById(Long categoryId) {
         return productCategoryRepository.findById(categoryId);
+    }
+
+    @Override
+    public List<ProductCategory> findCategoriesAndAddToModel(Model model, String searchTerm) {
+        List<ProductCategory> productCategories = productCategoryRepository.findByName(searchTerm);
+
+        if(productCategories.size() > 0) {
+
+            List<ProductCategory> resultProductCategories;
+
+            if(productCategories.size() < 4) {
+                resultProductCategories = productCategories;
+            } else {
+                resultProductCategories = productCategories.subList(0, 4);
+            }
+
+            model.addAttribute("foundCategories", resultProductCategories);
+
+            return resultProductCategories;
+        } else {
+            return null;
+        }
     }
 
 }

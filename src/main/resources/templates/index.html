@@ -63,9 +63,65 @@
         <!-- Top header -->
         <header class="w3-container w3-xlarge">
             <p class="w3-left">Hot</p>
-            <p class="w3-right">
-                <i class="fa fa-search"></i>
-            </p>
+
+            <!-- Search section -->
+            <div class="w3-right w3-padding-16">
+
+                <div id="Search" class="section w3-container w3-row w3-animate-right" style="display:none">
+
+                    <!--
+                    <form th:action="@{/search/all}" method="post"
+                          th:object="${searchForm}">
+
+                        <div class="form-group w3-half">
+                            <input type="text" class="form-control w3-input w3-bar-item" id="SearchTerm" th:field="*{searchTerm}"
+                                   placeholder="Search"/>
+                        </div>
+
+                        <button type="submit" name="submit" value="value"
+                                class="link-button w3-bar-item w3-button w3-quarter"><i
+                                class="fa fa-chevron-right"></i></button>
+                    </form>
+                    -->
+
+                    <form action="/search/all" method="get">
+
+                        <div class="form-group w3-half">
+                            <input type="text" class="w3-input w3-bar-item" name="searchTerm"
+                                   placeholder="Search"/>
+                        </div>
+
+                        <button type="submit"
+                                class="link-button w3-bar-item w3-button w3-quarter"><i
+                                class="fa fa-chevron-right"></i></button>
+
+                        <button type="button" class="w3-bar-item w3-button w3-quarter" onclick="closeSearch()"><i
+                                class="fa fa-close"></i>
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+                <button id="SearchOpen" class="w3-bar-item w3-button w3-animate-right" onclick="openSearch()"><i
+                        class="fa fa-search"></i>
+                </button>
+
+                <script>
+                    function openSearch() {
+                        document.getElementById("Search").style.display = "inline-block";
+                        document.getElementById("SearchOpen").style.display = "none";
+                    }
+
+                    function closeSearch() {
+                        document.getElementById("Search").style.display = "none";
+                        document.getElementById("SearchOpen").style.display = "inline-block";
+                    }
+
+                </script>
+
+            </div>
         </header>
 
         <!-- Image header

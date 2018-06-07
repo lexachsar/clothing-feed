@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<body>
+
+<!-- TODO fix sidebar left align -->
+<div th:fragment="content-sidebar">
+
+    <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align"
+       id="categoryBtn">
+        Categories <i class="fa fa-caret-down"></i>
+    </a>
+    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+        <tr th:each="category : ${categories}">
+
+            <a th:href="${'/category?categoryId=' + category.id + '&page=1'}" class="w3-bar-item w3-button"
+               th:text="${category.name}"></a>
+
+        </tr>
+    </div>
+
+</div>
+
+<!--
+    <div class="w3-padding-24 w3-large w3-text-grey" style="font-weight:bold">
+        <a href="#" class="w3-bar-item w3-button">Shirts</a>
+        <a href="#" class="w3-bar-item w3-button">Dresses</a>
+        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+            Jeans <i class="fa fa-caret-down"></i>
+        </a>
+        <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a>
+            <a href="#" class="w3-bar-item w3-button">Relaxed</a>
+            <a href="#" class="w3-bar-item w3-button">Bootcut</a>
+            <a href="#" class="w3-bar-item w3-button">Straight</a>
+        </div>
+        <a href="#" class="w3-bar-item w3-button">Jackets</a>
+        <a href="#" class="w3-bar-item w3-button">Gymwear</a>
+        <a href="#" class="w3-bar-item w3-button">Blazers</a>
+        <a href="#" class="w3-bar-item w3-button">Shoes</a>
+    </div>
+-->
+
+<div th:fragment="content-main">
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:250px">
+
+
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <!-- TODO Check -->
+            <p class="w3-left" th:text="${'Search: ' + searchTerm}">
+            </p>
+            <p class="w3-right">
+                <i class="fa fa-search"></i>
+            </p>
+        </header>
+
+        <div class="w3-padding">
+            <div class="w3-card-4">
+                <div class="w3-container w3-black">
+                    <h3 class="w3-left">Products</h3>
+
+                    <a th:if="${products != null}" th:href="${'/search/products?searchTerm=' + searchTerm + '&page=1' }" class="w3-button w3-right">Watch All</a>
+                </div>
+
+                <p class="w3-padding-24 w3-center" th:if="${products == null}">We didn't found any products matching
+                    this search term.</p>
+
+                <div class="w3-row" th:if="${products != null}">
+
+                    <tr th:each="product : ${products}">
+                        <div class="w3-col l3 s6">
+
+
+                            <div class="w3-container w3-padding-large w3-hover-shadow">
+                                <div class="w3-display-container">
+                                    <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                                    <p>
+                                    <div th:text="${product.name + ' ' + product.brandName}"></div>
+                                    <b>
+                                        <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                                    </b>
+                                    </p>
+
+                                    <div class="w3-display-middle w3-display-hover">
+                                        <a th:href="${'/product/summary?productId=' + product.id}"
+                                           class="w3-button w3-black" target="_blank">Watch now <i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </tr>
+                </div>
+
+
+            </div>
+
+            <div class="w3-card-4 ">
+
+                <div class="w3-container w3-black">
+                    <h3 class="w3-left">Users</h3>
+                </div>
+
+                <p class="w3-padding-24 w3-center" th:if="${users == null}">We didn't found any users matching this
+                    search term.</p>
+                <table th:if="${users != null}" class="w3-table-all w3-centered">
+
+                    <tr>
+                        <th>Username</th>
+                    </tr>
+
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}"></td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="w3-card-4 ">
+
+                <div class="w3-container w3-black">
+                    <h3 class="w3-left">Categories</h3>
+                </div>
+
+                <p class="w3-padding-24 w3-center" th:if="${foundCategories == null}">We didn't found any categories matching
+                    this search term.</p>
+                <table th:if="${foundCategories != null}" class="w3-table-all w3-centered">
+
+                    <tr th:each="category : ${foundCategories}">
+                        <td><a th:href="${'/category?categoryId=' + category.id + '&page=1'}" class="w3-button w3-block"
+                               th:text="${category.name}"></a></td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+
+        <div th:insert="footer"></div>
+
+        <!-- End page content -->
+    </div>
+
+</div>
+
+</body>
+</html>

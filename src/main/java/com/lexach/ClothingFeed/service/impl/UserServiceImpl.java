@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -48,19 +49,47 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
                 getAuthentication().getPrincipal();
+
         User user = null;
         if (userDetails instanceof User) {
             user =  (User) userDetails;
         }
+
         return user;
     }
 
-    // TODO Fix cast exception
     @Override
     public void addUserToModel(Model model) {
         User user = getCurrentUser();
 
         model.addAttribute("user", user);
+    }
+
+    @Override
+    public List<User> searchUsers(String searchTerm) {
+        return userRepository.findDistinctByUsernameOrEmail(searchTerm, searchTerm);
+    }
+
+    @Override
+    public List<User> findUsersAndAddToModel(Model model, String searchTerm) {
+        List<User> users = this.searchUsers(searchTerm);
+
+        if(users.size() > 0 ) {
+
+            List<User> resultUsers;
+
+            if(users.size() < 4) {
+                resultUsers = users;
+            } else {
+                resultUsers = users.subList(0, 4);
+            }
+
+            model.addAttribute("users", resultUsers);
+
+            return resultUsers;
+        } else {
+            return null;
+        }
     }
 
 

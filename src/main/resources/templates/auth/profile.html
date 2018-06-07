@@ -1,8 +1,124 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
 <body>
 
+<div th:fragment="content-sidebar">
+
+    <!-- Profile sidebar navigation -->
+    <a onclick="myAccFunc()" href="javascript:void(0)"
+       class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+        Profile <i class="fa fa-caret-down"></i>
+    </a>
+
+    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+
+        <button class="w3-bar-item w3-button" onclick="openSection('Info')">Info</button>
+        <button class="w3-bar-item w3-button" onclick="openSection('Bookmarks')">Bookmarks</button>
+        <button class="w3-bar-item w3-button" onclick="openSection('Filters')">Filters</button>
+
+    </div>
+
+</div>
+
+<div th:fragment="content-main">
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:250px">
 
 
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <p class="w3-left" th:text="${user.username + ' profile.'}"></p>
+            <p class="w3-right">
+                <i class="fa fa-search"></i>
+            </p>
+        </header>
+
+        <div id="Info" class="section w3-container w3-animate-right">
+            <h2>User Info</h2>
+            <table class="w3-table-all w3-centered">
+                <tr>
+                    <td>Email:</td>
+                    <td th:text="${user.email}"></td>
+                </tr>
+                <tr>
+                    <td>Username:</td>
+                    <td th:text="${user.username}"></td>
+                </tr>
+
+                <tr th:if="${user.birthDate != null}">
+                    <td>Birth Date:</td>
+                    <td th:text="${user.birthDate}"></td>
+                </tr>
+                <tr th:if="${user.gender != null}">
+                    <td>Gender:</td>
+                    <td th:text="${user.gender.name}"></td>
+                </tr>
+                <tr th:if="${user.registrationDate != null}">
+                    <td>Registration Date:</td>
+                    <td th:text="${user.registrationDate}"></td>
+                </tr>
+                <tr th:if="${user.country != null}">
+                    <td>Country:</td>
+                    <td th:text="${user.country.name}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="Bookmarks" class="section w3-container w3-animate-right" style="display:none">
+            <h2>Bookmarks</h2>
+
+            <table class="w3-table-all w3-centered">
+
+                <tr>
+                    <th>Name</th>
+                    <th>Created Date</th>
+                    <th>Link</th>
+                </tr>
+                <div th:each="bookmark : ${user.userBookmarks}">
+                    <tr>
+                        <td th:text="${bookmark.product.name + ' ' + bookmark.product.brandName}"></td>
+                        <td th:text="${bookmark.createdAt}"></td>
+                        <td><a th:href="${'/product/summary?productId=' + bookmark.product.id}"
+                               class="w3-button w3-block" target="_blank">Open</a></td>
+                    </tr>
+                </div>
+            </table>
+
+        </div>
+
+        <div id="Filters" class="section w3-container w3-animate-right" style="display:none">
+            <h2>Filters</h2>
+            <p>User saved filters.</p>
+        </div>
+
+        <div class="w3-bar w3-black">
+            <button class="w3-bar-item w3-button" onclick="openSection('Info')">Info</button>
+            <button class="w3-bar-item w3-button" onclick="openSection('Bookmarks')">Bookmarks</button>
+            <button class="w3-bar-item w3-button" onclick="openSection('Filters')">Filters</button>
+        </div>
+
+        <script>
+            function openSection(sectionName) {
+                var i;
+                var x = document.getElementsByClassName("section");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                document.getElementById(sectionName).style.display = "block";
+            }
+        </script>
+
+        <div th:insert="footer"></div>
+
+        <!-- End page content -->
+
+    </div>
+</div>
 </body>
 </html>

@@ -9,4 +9,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query(value = "SELECT * FROM product ORDER BY price LIMIT 50", nativeQuery = true)
     Iterable<Product> getFiftyBestElements();
 
+    Product findByName(String name);
+
+    Iterable<Product> findByNameOrBrandNameOrUrl(String name, String brandName, String url);
+
 }
