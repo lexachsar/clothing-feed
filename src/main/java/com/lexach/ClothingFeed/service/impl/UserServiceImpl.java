@@ -1,6 +1,7 @@
 package com.lexach.ClothingFeed.service.impl;
 
 import com.lexach.ClothingFeed.model.User;
+import com.lexach.ClothingFeed.model.UserBookmark;
 import com.lexach.ClothingFeed.repository.UserRepository;
 import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

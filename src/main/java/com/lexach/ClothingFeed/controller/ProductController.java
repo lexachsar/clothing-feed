@@ -79,6 +79,7 @@ public class ProductController {
     /**
      * Method bookmarks @param product.
      */
+    // TODO this method should work for only authorised users.
     @GetMapping("/bookmark")
     public String bookmark( @RequestParam Long productId, @RequestParam String action) {
 
@@ -91,9 +92,12 @@ public class ProductController {
             User user = userService.getCurrentUser();
 
             if(action.equals("add")) {
-                UserBookmark userBookmark = new UserBookmark(user, product);
+                UserBookmark userBookmark = userBookmarkService.findByUserAndProduct(user, product);
+                if(Objects.isNull(userBookmark)) {
+                    userBookmark = new UserBookmark(user, product);
 
-                userBookmarkService.save(userBookmark);
+                    userBookmarkService.save(userBookmark);
+                }
             } else if(action.equals("delete")) {
                 UserBookmark userBookmark = userBookmarkService.findByUserAndProduct(user, product);
 

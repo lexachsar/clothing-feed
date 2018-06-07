@@ -8,6 +8,8 @@ import com.lexach.ClothingFeed.service.UserBookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserBookmarkServiceImpl implements UserBookmarkService {
 
@@ -27,6 +29,11 @@ public class UserBookmarkServiceImpl implements UserBookmarkService {
     @Override
     public UserBookmark findByUserAndProduct(User user, Product product) {
         return userBookmarkRepository.findByUserAndProduct(user, product);
+    }
+
+    @Override
+    public List<UserBookmark> findByUser(User user) {
+        return userBookmarkRepository.findByUser(user);
     }
 
 

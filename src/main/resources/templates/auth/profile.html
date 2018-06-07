@@ -73,14 +73,16 @@
         <div id="Bookmarks" class="section w3-container w3-animate-right" style="display:none">
             <h2>Bookmarks</h2>
 
-            <table class="w3-table-all w3-centered">
+            <p th:if="${bookmarks == null}">You don't have any bookmarks.</p>
+
+            <table th:if="${bookmarks != null}" class="w3-table-all w3-centered">
 
                 <tr>
                     <th>Name</th>
                     <th>Created Date</th>
                     <th>Link</th>
                 </tr>
-                <div th:each="bookmark : ${user.userBookmarks}">
+                <div th:each="bookmark : ${bookmarks}">
                     <tr>
                         <td th:text="${bookmark.product.name + ' ' + bookmark.product.brandName}"></td>
                         <td th:text="${bookmark.createdAt}"></td>

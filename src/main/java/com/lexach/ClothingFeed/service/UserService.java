@@ -1,6 +1,7 @@
 package com.lexach.ClothingFeed.service;
 
 import com.lexach.ClothingFeed.model.User;
+import com.lexach.ClothingFeed.model.UserBookmark;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
 
@@ -19,4 +20,6 @@ public interface UserService extends UserDetailsService {
     public List<User> searchUsers(String searchTerm);
 
     public List<User> findUsersAndAddToModel(Model model, String searchTerm);
+
+    public User save(User user);
 }

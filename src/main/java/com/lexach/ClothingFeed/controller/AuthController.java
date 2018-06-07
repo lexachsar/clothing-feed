@@ -3,6 +3,7 @@ package com.lexach.ClothingFeed.controller;
 import com.lexach.ClothingFeed.controller.form.UserRegistrationForm;
 import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.model.UserBookmark;
+import com.lexach.ClothingFeed.service.UserBookmarkService;
 import com.lexach.ClothingFeed.service.UserService;
 import com.lexach.ClothingFeed.valid.UserRegistrationFromValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -25,6 +27,8 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserBookmarkService userBookmarkService;
     /*
     @Autowired
     private UserRegistrationFromValidator userRegistrationFromValidator;
@@ -83,6 +87,13 @@ public class AuthController {
         User user = userService.getCurrentUser();
 
         model.addAttribute("user", user);
+
+
+        List<UserBookmark> bookmarks = userBookmarkService.findByUser(user);
+
+        if (!bookmarks.isEmpty()) {
+            model.addAttribute("bookmarks", bookmarks);
+        }
 
         return "auth/profile";
     }
