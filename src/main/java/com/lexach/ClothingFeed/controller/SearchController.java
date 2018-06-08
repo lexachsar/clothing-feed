@@ -69,12 +69,9 @@ public class SearchController {
 
         LinkedList<Product> products = productService.search(searchTerm);
 
-        products.subList(80 * page, 80 + 80 * page);
+        List<Product> productsPage = productService.getPage(products, page, 40);
 
-        model.addAttribute("products1col", products.subList(0, 20));
-        model.addAttribute("products2col", products.subList(20, 40));
-        model.addAttribute("products3col", products.subList(40, 60));
-        model.addAttribute("products4col", products.subList(60, 80));
+        productService.createColumnsAndAddToModel(model, productsPage);
 
         return "/search/products";
 

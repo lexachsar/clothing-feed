@@ -203,7 +203,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `MarketPlaceDB`.`ActiveSearch`
+-- Table `MarketPlaceDB`.`SearchFilter`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `MarketPlaceDB`.`ActiveSearch` (
   `id` BIGINT NOT NULL,

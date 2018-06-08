@@ -39,14 +39,7 @@ public class IndexController {
         // TODO try to change this part.
         ArrayList<Product> products = (ArrayList<Product>) productService.findHottestProducts();
 
-        if(products.isEmpty()) {
-            model.addAttribute("errorProductsAreEmpty", true);
-        } else {
-            model.addAttribute("products1col", products.subList(0, 10));
-            model.addAttribute("products2col", products.subList(10, 20));
-            model.addAttribute("products3col", products.subList(20, 30));
-            model.addAttribute("products4col", products.subList(30, 40));
-        }
+        productService.createColumnsAndAddToModel(model, products);
 
         return "/index";
     }

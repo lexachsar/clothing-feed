@@ -4,6 +4,7 @@ import com.lexach.ClothingFeed.model.Product;
 import com.lexach.ClothingFeed.model.ProductCategory;
 import com.lexach.ClothingFeed.repository.ProductCategoryRepository;
 import com.lexach.ClothingFeed.service.ProductCategoryService;
+import com.lexach.ClothingFeed.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,6 +22,9 @@ public class CategoryController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/category")
     public String category(Model model, @RequestParam Long categoryId, @RequestParam Integer page) {
@@ -50,12 +55,9 @@ public class CategoryController {
 
             ArrayList<Product> products = new ArrayList<Product>(category.getProducts());
 
-            products.subList(80 * page, 80 + 80 * page);
+            List<Product> productsPage = productService.getPage(products, page, 80);
 
-            model.addAttribute("products1col", products.subList(0, 20));
-            model.addAttribute("products2col", products.subList(20, 40));
-            model.addAttribute("products3col", products.subList(40, 60));
-            model.addAttribute("products4col", products.subList(60, 80));
+            productService.createColumnsAndAddToModel(model, productsPage);
 
         }
 

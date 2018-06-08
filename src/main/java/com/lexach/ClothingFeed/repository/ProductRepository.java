@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    @Query(value = "SELECT * FROM product ORDER BY price LIMIT 50", nativeQuery = true)
-    Iterable<Product> getFiftyBestElements();
+    @Query(value = "SELECT * FROM product ORDER BY price LIMIT 40", nativeQuery = true)
+    Iterable<Product> getFortyBestElements();
 
     Product findByName(String name);
 

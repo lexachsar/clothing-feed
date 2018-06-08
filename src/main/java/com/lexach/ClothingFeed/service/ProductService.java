@@ -25,4 +25,13 @@ public interface ProductService {
     public Product findByName(String searchTerm);
 
     public List<Product> findProductsAndAddToModel(Model model, String searchTerm);
+
+    /**
+     * Creates columns from @param products and adds them to @param model.
+     * @return Number of products, added to model.
+     */
+    public Integer createColumnsAndAddToModel(Model model, List<Product> products);
+
+    public List<Product> getPage(List<Product> products, Integer page, Integer productsPerPage);
+
 }
