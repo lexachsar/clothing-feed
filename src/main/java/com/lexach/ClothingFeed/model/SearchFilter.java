@@ -8,11 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
 // Аннотация описывает детали таблички, к которой данная модель прилепится.
-@Table(name = "ActiveSearch")
+@Table(name = "SearchFilter")
 // EntityListener для инжекта значения в поля под аннотацией @CreatedDate.
 @EntityListeners(AuditingEntityListener.class)
 
@@ -20,7 +22,7 @@ import java.util.Date;
 // Эта аннотация используется т.к. мы не хотим, чтобы клиенты rest api парились с предоставлением значиний createdAt и updatedAt.
 // Если они предоставляют данные значения, мы просто их игнорим. Тем не менее, мы включаем эти значения в JSON response.
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class ActiveSearch {
+public class SearchFilter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +33,28 @@ public class ActiveSearch {
     @CreatedDate
     private Date createdAt;
 
-    @NotBlank
-    private Long idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    private User user;
 
-    @NotBlank
-    private Long idCategory;
+    @ManyToOne
+    @JoinColumn(name = "idCategory")
+    private ProductCategory category;
 
-    @NotBlank
-    private Long idColour;
+    @ManyToOne
+    @JoinColumn(name = "idColour")
+    private Colour colour;
 
-    @NotBlank
-    private Long idCategorySize;
+    @ManyToOne
+    @JoinColumn(name = "idCategorySize")
+    private CategorySize categorySize;
+
+    @ManyToOne
+    @JoinColumn(name = "idGender")
+    private Gender gender;
+
+    @Transient
+    private List<Product> productList;
 
     public Long getId() {
         return id;
@@ -59,35 +72,61 @@ public class ActiveSearch {
         this.createdAt = createdAt;
     }
 
-    public Long getIdUser() {
-        return idUser;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getIdCategory() {
-        return idCategory;
+    public ProductCategory getCategory() {
+        return category;
     }
 
-    public void setIdCategory(Long idCategory) {
-        this.idCategory = idCategory;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
-    public Long getIdColour() {
-        return idColour;
+    public Colour getColour() {
+        return colour;
     }
 
-    public void setIdColour(Long idColour) {
-        this.idColour = idColour;
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 
-    public Long getIdCategorySize() {
-        return idCategorySize;
+    public CategorySize getCategorySize() {
+        return categorySize;
     }
 
-    public void setIdCategorySize(Long idCategorySize) {
-        this.idCategorySize = idCategorySize;
+    public void setCategorySize(CategorySize categorySize) {
+        this.categorySize = categorySize;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+
+        if (!Objects.isNull(productList)) {
+            if (productList.size() < 4) {
+                if (productList.size() > 0) {
+                    this.productList = productList;
+                }
+            } else {
+                this.productList = productList.subList(0, 4);
+            }
+        }
     }
 }

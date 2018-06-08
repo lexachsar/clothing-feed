@@ -22,6 +22,9 @@ public class Gender {
     @OneToMany(mappedBy = "gender")
     private Set<User> users;
 
+    @OneToMany(mappedBy = "gender")
+    private Set<SearchFilter> searchFilters;
+
     public Gender() {
     }
 
@@ -59,5 +62,13 @@ public class Gender {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<SearchFilter> getSearchFilters() {
+        return searchFilters;
+    }
+
+    public void setSearchFilters(Set<SearchFilter> searchFilters) {
+        this.searchFilters = searchFilters;
     }
 }

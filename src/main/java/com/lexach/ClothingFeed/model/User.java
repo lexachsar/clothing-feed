@@ -57,8 +57,11 @@ public class User implements UserDetails {
 
     // TODO: add groups.
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserBookmark> userBookmarks;
+
+    @OneToMany(mappedBy = "user")
+    private Set<SearchFilter> searchFilters;
 
     public Long getId() {
         return id;
@@ -158,5 +161,13 @@ public class User implements UserDetails {
 
     public void setUserBookmarks(Set<UserBookmark> userBookmarks) {
         this.userBookmarks = userBookmarks;
+    }
+
+    public Set<SearchFilter> getSearchFilters() {
+        return searchFilters;
+    }
+
+    public void setSearchFilters(Set<SearchFilter> searchFilters) {
+        this.searchFilters = searchFilters;
     }
 }

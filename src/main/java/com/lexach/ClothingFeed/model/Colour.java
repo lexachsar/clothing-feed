@@ -24,6 +24,9 @@ public class Colour {
     @OneToMany(mappedBy = "colour")
     private Set<ProductColour> productColours;
 
+    @OneToMany(mappedBy = "colour")
+    private Set<SearchFilter> searchFilters;
+
     public Colour() {
     }
 
@@ -57,5 +60,13 @@ public class Colour {
 
     public void setProductColours(Set<ProductColour> productColours) {
         this.productColours = productColours;
+    }
+
+    public Set<SearchFilter> getSearchFilters() {
+        return searchFilters;
+    }
+
+    public void setSearchFilters(Set<SearchFilter> searchFilters) {
+        this.searchFilters = searchFilters;
     }
 }

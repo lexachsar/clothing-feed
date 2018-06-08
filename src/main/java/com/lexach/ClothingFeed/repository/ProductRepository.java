@@ -1,16 +1,25 @@
 package com.lexach.ClothingFeed.repository;
 
+import com.lexach.ClothingFeed.model.Gender;
 import com.lexach.ClothingFeed.model.Product;
+import com.lexach.ClothingFeed.model.ProductCategory;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @Query(value = "SELECT * FROM product ORDER BY price LIMIT 40", nativeQuery = true)
-    Iterable<Product> getFortyBestElements();
+    List<Product> getFortyBestElements();
 
     Product findByName(String name);
 
     Iterable<Product> findByNameOrBrandNameOrUrl(String name, String brandName, String url);
 
+    List<Product> findDistinctByCategoryOrGenderOrderByCreatedAt(ProductCategory category, Gender gender);
+
+    List<Product> findByCategoryOrderByCreatedAt(ProductCategory category);
+
+    List<Product> findByGenderOrderByCreatedAt(Gender gender);
 }

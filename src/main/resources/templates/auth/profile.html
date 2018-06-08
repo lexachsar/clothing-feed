@@ -40,7 +40,11 @@
         </header>
 
         <div id="Info" class="section w3-container w3-animate-right">
-            <h2>User Info</h2>
+            <header class="w3-container">
+            <h2 class="w3-left">User Info</h2>
+            <a href="/auth/update"
+               class="w3-button w3-right">Create New Filter</a>
+            </header>
             <table class="w3-table-all w3-centered">
                 <tr>
                     <td>Email:</td>
@@ -95,8 +99,60 @@
         </div>
 
         <div id="Filters" class="section w3-container w3-animate-right" style="display:none">
-            <h2>Filters</h2>
-            <p>User saved filters.</p>
+            <header class="w3-container">
+                <h2 class="w3-left">Filters</h2>
+                <a href="/search/filter"
+                   class="w3-button w3-right">Create New Filter</a>
+            </header>
+            <p th:if="${filters == null}">You don't have any filters.</p>
+
+            <div th:each="filter : ${filters}">
+                <div class="w3-card-4 ">
+
+                    <header class="w3-container w3-black">
+
+                        <h3 class="w3-left" th:if="${filter.category != null}" th:text="${filter.category.name}"></h3>
+
+                        <h3 class="w3-left" th:if="${filter.gender != null}" th:text="${filter.gender.name}"></h3>
+
+                    </header>
+                    <p class="w3-padding-24 w3-center" th:if="${filter.productList == null}">We didn't found any
+                        products matching
+                        this search term.</p>
+
+                    <div class="w3-row" th:if="${filter.productList != null}">
+
+                        <tr th:each="product : ${filter.productList}">
+                            <div class="w3-col l3 s6">
+
+
+                                <div class="w3-container w3-padding-large w3-hover-shadow">
+                                    <div class="w3-display-container">
+                                        <img class="product-prev-image w3-padding-24" th:src="${product.mainImageLink}">
+
+                                        <p>
+                                        <div th:text="${product.name + ' ' + product.brandName}"></div>
+                                        <b>
+                                            <div th:text="${product.price + ' ' + product.priceCurrency}"></div>
+                                        </b>
+                                        </p>
+
+                                        <div class="w3-display-middle w3-display-hover">
+                                            <a th:href="${'/product/summary?productId=' + product.id}"
+                                               class="w3-button w3-black" target="_blank">Watch now <i
+                                                    class="fa fa-eye"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </tr>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
 
         <div class="w3-bar w3-black">

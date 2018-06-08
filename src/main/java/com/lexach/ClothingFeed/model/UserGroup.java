@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
 // Аннотация описывает детали таблички, к которой данная модель прилепится.
-@Table(name = "ActiveSearch")
+@Table(name = "UserGroup")
 public class UserGroup {
 
     @Id

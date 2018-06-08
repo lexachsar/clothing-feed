@@ -3,6 +3,7 @@ package com.lexach.ClothingFeed.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Set;
 
 // Все модели должны быть аннотированы данной аннотацией.
 @Entity
@@ -32,6 +33,9 @@ public class CategorySize{
 
     @Column(name = "itSize", nullable = false)
     private Integer itSize;
+
+    @OneToMany(mappedBy = "categorySize")
+    private Set<SearchFilter> searchFilters;
 
     public CategorySize() {
     }
@@ -90,5 +94,13 @@ public class CategorySize{
 
     public void setItSize(Integer itSize) {
         this.itSize = itSize;
+    }
+
+    public Set<SearchFilter> getSearchFilters() {
+        return searchFilters;
+    }
+
+    public void setSearchFilters(Set<SearchFilter> searchFilters) {
+        this.searchFilters = searchFilters;
     }
 }

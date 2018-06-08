@@ -1,10 +1,11 @@
 package com.lexach.ClothingFeed.controller;
 
-import com.lexach.ClothingFeed.controller.form.SearchForm;
+import com.lexach.ClothingFeed.controller.form.SearchFilterForm;
 import com.lexach.ClothingFeed.model.Product;
-import com.lexach.ClothingFeed.model.User;
+import com.lexach.ClothingFeed.model.SearchFilter;
 import com.lexach.ClothingFeed.service.ProductCategoryService;
 import com.lexach.ClothingFeed.service.ProductService;
+import com.lexach.ClothingFeed.service.SearchFilterService;
 import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +28,9 @@ public class SearchController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SearchFilterService searchFilterService;
 
     @GetMapping("/all")
     public String searchAll(Model model, @RequestParam String searchTerm) {
@@ -59,11 +61,11 @@ public class SearchController {
 
         page--;
 
-        if(page < 0) {
+        if (page < 0) {
             // TODO throw exception
         }
 
-        if(page > 0) {
+        if (page > 0) {
             model.addAttribute("isPrevPageExists", true);
         }
 
@@ -77,4 +79,23 @@ public class SearchController {
 
     }
 
+    @GetMapping("/filter")
+    public String filter(Model model) {
+        model.addAttribute("searchFilterForm", new SearchFilterForm());
+        return ("/search/filter");
+    }
+
+    @PostMapping("/filter")
+    public String filter(@ModelAttribute("searchFilterForm") SearchFilterForm searchFilterForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "search/filter";
+        }
+
+        SearchFilter searchFilter = searchFilterService.createSearchFilterFromForm(searchFilterForm);
+
+        searchFilterService.save(searchFilter);
+
+        return "redirect:/profile";
+    }
 }

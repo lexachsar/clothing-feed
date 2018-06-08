@@ -18,6 +18,9 @@ public class ProductCategory {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
+    @OneToMany(mappedBy = "category")
+    private Set<SearchFilter> searchFilters;
+
     public ProductCategory() {
     }
 
@@ -47,5 +50,13 @@ public class ProductCategory {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<SearchFilter> getSearchFilters() {
+        return searchFilters;
+    }
+
+    public void setSearchFilters(Set<SearchFilter> searchFilters) {
+        this.searchFilters = searchFilters;
     }
 }

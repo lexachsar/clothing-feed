@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+
+<body>
+
+<div th:fragment="content-sidebar">
+
+
+</div>
+
+<div th:fragment="content-main">
+
+    <!-- TODO FIX error during parsing this page, when validation error pops up. -->
+
+    <!-- !PAGE CONTENT! -->
+    <div th:fragment="content" class="w3-main" style="margin-left:250px">
+
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top:83px"></div>
+
+        <!-- Top header -->
+        <header class="page-header w3-container w3-xlarge">
+            <p class="w3-center">Create New Filter</p>
+        </header>
+
+        <p>Any of these fields can be empty.</p>
+
+        <form th:action="@{/search/filter}" method="post"
+              class="form-sign w3-center w3-container w3-padding-64 w3-large w3-text-grey" th:object="${searchFilterForm}">
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" id="category" th:field="*{categoryTerm}" placeholder="Category Name"/>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" id="colour" th:field="*{colourTerm}"
+                       placeholder="Colour Name or HEX" disabled/>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" th:field="*{sizeTerm}" id="size"
+                       placeholder="Size" disabled/>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control w3-input" th:field="*{genderTerm}" id="gender"
+                       placeholder="Gender"/>
+            </div>
+
+            <input class="btn btn-success btn-block w3-button" type="submit" value="Save"/>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
+
