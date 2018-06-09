@@ -15,11 +15,20 @@ public class Colour {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name ;
 
     @Column(name = "hex", nullable = false, unique = true)
     private String hex;
+
+    @Column(name = "r", nullable = false)
+    private Integer r;
+
+    @Column(name = "g", nullable = false)
+    private Integer g;
+
+    @Column(name = "b", nullable = false)
+    private Integer b;
 
     @OneToMany(mappedBy = "colour")
     private Set<ProductColour> productColours;
@@ -68,5 +77,29 @@ public class Colour {
 
     public void setSearchFilters(Set<SearchFilter> searchFilters) {
         this.searchFilters = searchFilters;
+    }
+
+    public Integer getR() {
+        return r;
+    }
+
+    public void setR(Integer r) {
+        this.r = r;
+    }
+
+    public Integer getG() {
+        return g;
+    }
+
+    public void setG(Integer g) {
+        this.g = g;
+    }
+
+    public Integer getB() {
+        return b;
+    }
+
+    public void setB(Integer b) {
+        this.b = b;
     }
 }
