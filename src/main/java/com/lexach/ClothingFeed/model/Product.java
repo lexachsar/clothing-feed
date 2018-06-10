@@ -224,4 +224,12 @@ public class Product {
     public void setUserBookmarks(Set<UserBookmark> userBookmarks) {
         this.userBookmarks = userBookmarks;
     }
+
+    public Set<ProductColour> getProductColours() {
+        return productColours;
+    }
+
+    public void setProductColours(Set<ProductColour> productColours) {
+        this.productColours = productColours;
+    }
 }

@@ -20,6 +20,32 @@ public class ProductColour {
     @JoinColumn(name = "idColour", nullable = false)
     private Colour colour;
 
+    public ProductColour(Product product, Colour colour) {
+        this.product = product;
+        this.colour = colour;
+    }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
 }
