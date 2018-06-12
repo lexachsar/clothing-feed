@@ -31,7 +31,7 @@ public class Colour {
     private Integer b;
 
     @OneToMany(mappedBy = "colour")
-    private Set<ProductColour> productColours;
+    private Set<ColourComposite> coloursComposite;
 
     @OneToMany(mappedBy = "colour")
     private Set<SearchFilter> searchFilters;
@@ -61,14 +61,6 @@ public class Colour {
 
     public void setHex(String hex) {
         this.hex = hex;
-    }
-
-    public Set<ProductColour> getProductColours() {
-        return productColours;
-    }
-
-    public void setProductColours(Set<ProductColour> productColours) {
-        this.productColours = productColours;
     }
 
     public Set<SearchFilter> getSearchFilters() {
@@ -101,5 +93,13 @@ public class Colour {
 
     public void setB(Integer b) {
         this.b = b;
+    }
+
+    public Set<ColourComposite> getColoursComposite() {
+        return coloursComposite;
+    }
+
+    public void setColoursComposite(Set<ColourComposite> coloursComposite) {
+        this.coloursComposite = coloursComposite;
     }
 }

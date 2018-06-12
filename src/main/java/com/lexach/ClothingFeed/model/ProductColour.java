@@ -1,7 +1,7 @@
 package com.lexach.ClothingFeed.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "ProductColour")
@@ -16,13 +16,13 @@ public class ProductColour {
     @JoinColumn(name = "idProduct", nullable = false)
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "idColour", nullable = false)
-    private Colour colour;
+    // One to many relations.
+    // Colour composite collection.
+    @OneToMany(mappedBy = "productColour")
+    private Set<ColourComposite> coloursComposite;
 
     public ProductColour(Product product, Colour colour) {
         this.product = product;
-        this.colour = colour;
     }
 
     public Long getId() {
@@ -41,11 +41,11 @@ public class ProductColour {
         this.product = product;
     }
 
-    public Colour getColour() {
-        return colour;
+    public Set<ColourComposite> getColoursComposite() {
+        return coloursComposite;
     }
 
-    public void setColour(Colour colour) {
-        this.colour = colour;
+    public void setColoursComposite(Set<ColourComposite> coloursComposite) {
+        this.coloursComposite = coloursComposite;
     }
 }

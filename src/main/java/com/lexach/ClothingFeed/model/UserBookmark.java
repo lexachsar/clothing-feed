@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "UserBookmark")
+@Table(name = "UserBookmark", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"idProduct", "idUser"}) })
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class UserBookmark {
@@ -29,15 +30,15 @@ public class UserBookmark {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "createdAt", updatable = false)
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private Date createdAt;
-
-    public UserBookmark() {
-    }
 
     public UserBookmark(User user, Product product) {
         this.user = user;
         this.product = product;
+    }
+
+    public UserBookmark() {
     }
 
     public Long getId() {
