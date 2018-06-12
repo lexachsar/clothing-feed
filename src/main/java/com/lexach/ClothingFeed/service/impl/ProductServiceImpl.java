@@ -114,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
 
         if (products.size() < rightBound && products.size() > leftBound) {
             productsPage = products.subList(leftBound, products.size());
-        } else if (products.size() != 0) {
+        } else if (products.size() != 0 && products.size() > leftBound) {
             productsPage = products.subList(leftBound, rightBound);
         } else {
             productsPage = null;

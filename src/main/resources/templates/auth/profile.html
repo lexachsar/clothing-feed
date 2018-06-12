@@ -34,16 +34,61 @@
         <!-- Top header -->
         <header class="w3-container w3-xlarge">
             <p class="w3-left" th:text="${user.username + ' profile.'}"></p>
-            <p class="w3-right">
-                <i class="fa fa-search"></i>
-            </p>
+
+            <!-- Search section -->
+            <div class="w3-right w3-padding-16">
+
+                <div id="Search" class="section w3-container w3-row w3-animate-right" style="display:none">
+
+                    <form action="/search/all" method="get">
+
+                        <div class="form-group w3-half">
+                            <input type="text" class="w3-input w3-bar-item" name="searchTerm"
+                                   placeholder="Search"/>
+                        </div>
+
+                        <button type="submit"
+                                class="link-button w3-bar-item w3-button w3-quarter"><i
+                                class="fa fa-chevron-right"></i></button>
+
+                        <button type="button" class="w3-bar-item w3-button w3-quarter" onclick="closeSearch()"><i
+                                class="fa fa-close"></i>
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+                <button id="SearchOpen" class="w3-bar-item w3-button w3-animate-right w3-padding-large" onclick="openSearch()"><i
+                        class="fa fa-search"></i>
+                </button>
+
+                <script>
+                    function openSearch() {
+                        document.getElementById("Search").style.display = "inline-block";
+                        document.getElementById("SearchOpen").style.display = "none";
+                    }
+
+                    function closeSearch() {
+                        document.getElementById("Search").style.display = "none";
+                        document.getElementById("SearchOpen").style.display = "inline-block";
+                    }
+
+                </script>
+
+            </div>
+
         </header>
 
         <div id="Info" class="section w3-container w3-animate-right">
             <header class="w3-container">
-            <h2 class="w3-left">User Info</h2>
-            <a href="/auth/update"
-               class="w3-button w3-right">Create New Filter</a>
+                <h2 class="w3-left">User Info</h2>
+
+                <button id="update-profile" class="w3-button w3-padding-24 w3-right"><i
+                        class="w3-xlarge fa fa-pencil"></i></button>
+                <!--<a href="/auth/update"
+                   class="w3-button w3-right w3-xlarge"></a>-->
             </header>
             <table class="w3-table-all w3-centered">
                 <tr>
@@ -101,8 +146,10 @@
         <div id="Filters" class="section w3-container w3-animate-right" style="display:none">
             <header class="w3-container">
                 <h2 class="w3-left">Filters</h2>
-                <a href="/search/filter"
-                   class="w3-button w3-right">Create New Filter</a>
+
+                <a id="create-filter" href="/search/filter" class="w3-button w3-padding-24 w3-right"><i
+                        class="w3-xlarge fa fa-plus"></i></a>
+
             </header>
             <p th:if="${filters == null}">You don't have any filters.</p>
 
