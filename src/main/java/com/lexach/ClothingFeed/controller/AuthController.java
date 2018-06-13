@@ -1,18 +1,18 @@
 package com.lexach.ClothingFeed.controller;
 
 import com.lexach.ClothingFeed.controller.form.UserRegistrationForm;
-import com.lexach.ClothingFeed.model.Product;
+import com.lexach.ClothingFeed.controller.valid.UserRegistrationFormValidator;
 import com.lexach.ClothingFeed.model.SearchFilter;
 import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.model.UserBookmark;
 import com.lexach.ClothingFeed.service.SearchFilterService;
 import com.lexach.ClothingFeed.service.UserBookmarkService;
 import com.lexach.ClothingFeed.service.UserService;
-import com.lexach.ClothingFeed.valid.UserRegistrationFromValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -34,6 +34,15 @@ public class AuthController {
 
     @Autowired
     private SearchFilterService searchFilterService;
+
+    @Autowired
+    private UserRegistrationFormValidator userRegistrationFormValidator;
+
+    @InitBinder
+    public void dataBinding(WebDataBinder binder) {
+        binder.addValidators(userRegistrationFormValidator);
+    }
+
     /*
     @Autowired
     private UserRegistrationFromValidator userRegistrationFromValidator;
@@ -61,15 +70,12 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("user", new UserRegistrationForm());
+    public String registration(UserRegistrationForm userRegistrationForm) {
         return "auth/registration";
     }
 
     @PostMapping("/registration")
-    public String registration(
-            @Valid @ModelAttribute("userForm") UserRegistrationForm userRegistrationForm,
-            BindingResult bindingResult) {
+    public String registration(@Valid @ModelAttribute("userRegistrationForm") UserRegistrationForm userRegistrationForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "auth/registration";
@@ -102,7 +108,7 @@ public class AuthController {
 
         List<SearchFilter> filters = searchFilterService.findByUser(user);
 
-        if(!Objects.isNull(filters)) {
+        if (!Objects.isNull(filters)) {
 
             for (SearchFilter filter : filters) {
                 filter.setProductList(searchFilterService.applySearchFilter(filter));
@@ -110,7 +116,6 @@ public class AuthController {
 
             model.addAttribute("filters", filters);
         }
-
 
 
         return "auth/profile";

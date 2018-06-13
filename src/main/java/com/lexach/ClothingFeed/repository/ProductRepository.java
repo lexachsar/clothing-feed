@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    @Query(value = "SELECT * FROM product ORDER BY price LIMIT 40", nativeQuery = true)
+    // TODO Check this query.
+    @Query(value = "SELECT * FROM product ORDER BY price, created_at LIMIT 40", nativeQuery = true)
     List<Product> getFortyBestElements();
 
     Product findByName(String name);
