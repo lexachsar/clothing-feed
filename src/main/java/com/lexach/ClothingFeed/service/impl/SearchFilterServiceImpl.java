@@ -2,10 +2,7 @@ package com.lexach.ClothingFeed.service.impl;
 
 import com.lexach.ClothingFeed.controller.form.SearchFilterForm;
 import com.lexach.ClothingFeed.model.*;
-import com.lexach.ClothingFeed.repository.GenderRepository;
-import com.lexach.ClothingFeed.repository.ProductCategoryRepository;
-import com.lexach.ClothingFeed.repository.ProductRepository;
-import com.lexach.ClothingFeed.repository.SearchFilterRepository;
+import com.lexach.ClothingFeed.repository.*;
 import com.lexach.ClothingFeed.service.SearchFilterService;
 import com.lexach.ClothingFeed.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,9 @@ public class SearchFilterServiceImpl implements SearchFilterService {
     private ProductRepository productRepository;
 
     @Autowired
+    private ColourRepository colourRepository;
+
+    @Autowired
     private UserService userService;
 
     @Override
@@ -47,13 +47,25 @@ public class SearchFilterServiceImpl implements SearchFilterService {
             Iterable<ProductCategory> allCategories = productCategoryRepository.findAll();
 
             for (ProductCategory category : allCategories) {
-                if (category.getName().equals(searchFilterForm.getCategoryTerm())) {
+                if (category.getName().contains(searchFilterForm.getCategoryTerm())) {
                     result.setCategory(category);
                 }
             }
         }
 
-        //TODO: Set colour field
+        // Set colour field
+        if (!Objects.isNull(searchFilterForm.getColourTerm())) {
+            Iterable<Colour> allColours = colourRepository.findAll();
+
+            for (Colour colour : allColours) {
+                if (colour.getName().contains(searchFilterForm.getColourTerm()) ||
+                        colour.getHex().equals(searchFilterForm.getColourTerm())) {
+                    result.setColour(colour);
+                }
+            }
+
+        }
+
 
         // TODO: Set category size field
 
@@ -62,7 +74,7 @@ public class SearchFilterServiceImpl implements SearchFilterService {
             Iterable<Gender> allGenders = genderRepository.findAll();
 
             for (Gender gender : allGenders) {
-                if (gender.getName().equals(searchFilterForm.getGenderTerm())) {
+                if (gender.getName().contains(searchFilterForm.getGenderTerm())) {
                     result.setGender(gender);
                 }
             }

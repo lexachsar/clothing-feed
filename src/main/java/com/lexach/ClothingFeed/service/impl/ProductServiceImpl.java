@@ -1,6 +1,8 @@
 package com.lexach.ClothingFeed.service.impl;
 
+import com.lexach.ClothingFeed.model.ColourComposite;
 import com.lexach.ClothingFeed.model.Product;
+import com.lexach.ClothingFeed.model.ProductColour;
 import com.lexach.ClothingFeed.repository.ProductRepository;
 import com.lexach.ClothingFeed.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,14 @@ public class ProductServiceImpl implements ProductService {
                     product.getUrl().contains(searchTerm) ||
                     product.getGender().getName().contains(searchTerm)) {
                 result.add(product);
+            }
+
+            for (ProductColour productColour : product.getProductColours()) {
+                for (ColourComposite colourComposite : productColour.getColoursComposite()) {
+                    if (colourComposite.getColour().getHex().contains(searchTerm) || colourComposite.getColour().getName().contains(searchTerm) ) {
+                        result.add(product);
+                    }
+                }
             }
 
         }
