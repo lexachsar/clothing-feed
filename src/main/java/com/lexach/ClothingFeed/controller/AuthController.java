@@ -38,25 +38,10 @@ public class AuthController {
     @Autowired
     private UserRegistrationFormValidator userRegistrationFormValidator;
 
-    @InitBinder
+    @InitBinder("UserRegistrationForm")
     public void dataBinding(WebDataBinder binder) {
         binder.addValidators(userRegistrationFormValidator);
     }
-
-    /*
-    @Autowired
-    private UserRegistrationFromValidator userRegistrationFromValidator;
-
-    public AuthController(UserService userService, UserRegistrationFromValidator userRegistrationFromValidator) {
-        this.userService = userService;
-        this.userRegistrationFromValidator = userRegistrationFromValidator;
-    }
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(userRegistrationFromValidator);
-    }
-    */
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {

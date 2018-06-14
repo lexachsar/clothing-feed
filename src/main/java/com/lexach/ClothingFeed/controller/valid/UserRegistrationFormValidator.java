@@ -5,7 +5,6 @@ import com.lexach.ClothingFeed.model.User;
 import com.lexach.ClothingFeed.repository.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.util.Objects;
@@ -17,6 +16,9 @@ public class UserRegistrationFormValidator implements Validator {
 
     public UserRegistrationFormValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public UserRegistrationFormValidator() {
     }
 
     @Override

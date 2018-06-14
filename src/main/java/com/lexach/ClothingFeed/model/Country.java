@@ -19,8 +19,10 @@ public class Country {
     @OneToMany(mappedBy = "manufacturedCountry")
     private Set<Product> products;
 
+    /*
     @OneToMany(mappedBy = "sizeCountry")
     private Set<ProductSize> productSizes;
+    */
 
     @OneToMany(mappedBy = "country")
     private Set<User> users;
@@ -54,14 +56,6 @@ public class Country {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
-    }
-
-    public Set<ProductSize> getProductSizes() {
-        return productSizes;
-    }
-
-    public void setProductSizes(Set<ProductSize> productSizes) {
-        this.productSizes = productSizes;
     }
 
     public Set<User> getUsers() {

@@ -41,12 +41,12 @@ public class ProductServiceImpl implements ProductService {
 
         for (Product product : allProducts) {
 
-            if (product.getName().equals(searchTerm) ||
-                    product.getBrandName().equals(searchTerm) ||
-                    product.getRetailer().getName().equals(searchTerm) ||
-                    product.getCategory().getName().equals(searchTerm) ||
-                    product.getUrl().equals(searchTerm) ||
-                    product.getGender().equals(searchTerm)) {
+            if (product.getName().contains(searchTerm) ||
+                    product.getBrandName().contains(searchTerm) ||
+                    product.getRetailer().getName().contains(searchTerm) ||
+                    product.getCategory().getName().contains(searchTerm) ||
+                    product.getUrl().contains(searchTerm) ||
+                    product.getGender().getName().contains(searchTerm)) {
                 result.add(product);
             }
 

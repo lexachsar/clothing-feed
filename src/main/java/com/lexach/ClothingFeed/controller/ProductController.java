@@ -58,7 +58,8 @@ public class ProductController {
 
             model.addAttribute("productImages", productImages);
 
-            Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
+            // Add Product Colours
+            model.addAttribute("productColours", product.getProductColours());
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -70,7 +71,6 @@ public class ProductController {
 
                 model.addAttribute("userBookmark", userBookmark);
             }
-
 
         }
         return "/product/summary";

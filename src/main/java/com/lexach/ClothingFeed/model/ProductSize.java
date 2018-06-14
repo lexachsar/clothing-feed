@@ -19,11 +19,17 @@ public class ProductSize {
     @Column(name = "size", nullable = false)
     private String size;
 
-    @ManyToOne
-    @JoinColumn(name = "sizeCountryId", nullable = false)
-    private Country sizeCountry;
+    // TODO Add size country in future.
+    //@ManyToOne
+    //@JoinColumn(name = "sizeCountryId", nullable = false)
+    //private Country sizeCountry;
 
     public ProductSize() {
+    }
+
+    public ProductSize(Product product, String size) {
+        this.product = product;
+        this.size = size;
     }
 
     public Long getId() {
@@ -48,13 +54,5 @@ public class ProductSize {
 
     public void setSize(String size) {
         this.size = size;
-    }
-
-    public Country getSizeCountry() {
-        return sizeCountry;
-    }
-
-    public void setSizeCountry(Country sizeCountry) {
-        this.sizeCountry = sizeCountry;
     }
 }
