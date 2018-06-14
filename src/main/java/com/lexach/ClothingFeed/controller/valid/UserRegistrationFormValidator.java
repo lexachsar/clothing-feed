@@ -18,9 +18,6 @@ public class UserRegistrationFormValidator implements Validator {
         this.userRepository = userRepository;
     }
 
-    public UserRegistrationFormValidator() {
-    }
-
     @Override
     public boolean supports(Class<?> clazz) {
         return UserRegistrationForm.class.equals(clazz);

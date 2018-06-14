@@ -38,7 +38,7 @@ public class AuthController {
     @Autowired
     private UserRegistrationFormValidator userRegistrationFormValidator;
 
-    @InitBinder("UserRegistrationForm")
+    @InitBinder("userRegistrationForm")
     public void dataBinding(WebDataBinder binder) {
         binder.addValidators(userRegistrationFormValidator);
     }
