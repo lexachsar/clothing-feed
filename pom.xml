@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lexach</groupId>
-	<artifactId>ClothingFeed</artifactId>
+	<artifactId>clothing-feed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ClothingFeed</name>
+	<name>clothing-feed</name>
 	<description>Система получения, хранения и рекомендации информации об одежде с популярных сайтов.</description>
 
 	<parent>
