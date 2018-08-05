@@ -1,8 +1,6 @@
 package com.lexach.clothing.feed.service.impl;
 
 import com.lexach.clothing.feed.controller.form.SearchFilterForm;
-import com.lexach.ClothingFeed.model.*;
-import com.lexach.ClothingFeed.repository.*;
 import com.lexach.clothing.feed.model.*;
 import com.lexach.clothing.feed.repository.*;
 import com.lexach.clothing.feed.service.SearchFilterService;
